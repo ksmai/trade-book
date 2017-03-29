@@ -1,0 +1,5 @@
+{
+  "ignore": "*.spec.*",
+  "watch": "./src/server"
+}
+
