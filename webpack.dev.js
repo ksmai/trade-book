@@ -10,7 +10,7 @@ const config = {
   devtool: 'cheap-module-eval-source-map',
 
   entry: {
-    app: './src/client/main',
+    app: ['./src/client/main', 'webpack-hot-middleware/client'],
   },
 
   output: {
@@ -42,13 +42,15 @@ const config = {
       {
         test: /\.scss$/,
         include: CLIENT,
-        exclude: /component/,
+        exclude: /\.component\.scss/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
 
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core(\\|\/)@angular/,
       CLIENT,
