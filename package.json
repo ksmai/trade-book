@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development PORT=3000 MONGO_URL=mongodb://localhost/trade-book nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "random-id": "node src/server/test-util/mongo-id",
+    "test:server": "cross-env NODE_ENV=test nyc jasmine JASMINE_CONFIG_PATH=jasmine.json"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "bcrypt": "^1.0.2",
     "cross-env": "^3.2.4",
     "express": "^4.15.2",
     "mongoose": "^4.9.2",
@@ -63,5 +65,14 @@
     "webpack": "^2.3.2",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.1"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/test-util/*.js"
+    ]
   }
 }
