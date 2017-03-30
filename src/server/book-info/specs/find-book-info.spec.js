@@ -1,9 +1,9 @@
 import { Mockgoose } from 'mockgoose';
 import mongoose from 'mongoose';
 
-import BookInfo from './book-info.model';
-import findBookInfo from './find-book-info';
-import { testBookInfo } from '../test-util';
+import BookInfo from '../book-info.model';
+import findBookInfo from '../find-book-info';
+import { testBookInfo } from '../../test-util';
 
 describe('Create book info controller', () => {
   beforeAll(done => {

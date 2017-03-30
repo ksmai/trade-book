@@ -11,6 +11,7 @@ const bookInfoSchema = new mongoose.Schema({
   title: {
     type: String,
     trim: true,
+    required: true,
   },
   subtitle: {
     type: String,
