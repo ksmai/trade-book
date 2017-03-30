@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development PORT=3000 MONGO_URL=mongodb://localhost/trade-book nodemon index.js",
     "random-id": "node src/server/test-util/mongo-id",
-    "test:server": "cross-env NODE_ENV=test nyc jasmine JASMINE_CONFIG_PATH=jasmine.json"
+    "test:server": "cross-env NODE_ENV=test nyc jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "test": "npm run test:server"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "express": "^4.15.2",
     "mongoose": "^4.9.2",
     "passport": "^0.3.2",
+    "request": "^2.81.0",
     "rxjs": "^5.2.0",
     "zone.js": "^0.8.5"
   },
