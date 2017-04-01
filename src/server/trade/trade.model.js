@@ -26,6 +26,12 @@ const tradeSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  comment: {
+    type: String,
+    trim: true,
+    minlength: 1,
+    required: true,
+  },
 });
 
 export default mongoose.model('Trade', tradeSchema, 'trades');

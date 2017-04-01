@@ -8,6 +8,7 @@ const testTrade = {
   isAccepted: false,
   isRejected: false,
   isCompleted: false,
+  comment: 'Awesome deal isnt it',
 };
 
 export default testTrade;

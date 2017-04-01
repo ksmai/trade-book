@@ -31,7 +31,7 @@ describe('Init trade controller', () => {
   });
 
   it('initializes a trade', done => {
-    return initTrade({ requester, book: testBook._id })
+    return initTrade({ requester, book: testBook._id, comment: 'abc' })
       .then(done, done.fail);
   });
 
@@ -45,13 +45,13 @@ describe('Init trade controller', () => {
       .then(trades => {
         expect(trades.length).toEqual(0);
 
-        return initTrade(query);
+        return initTrade({ ...query, comment: '1' });
       })
       .then(() => Trade.find(query).exec())
       .then(trades => {
         expect(trades.length).toEqual(1);
 
-        return initTrade(query);
+        return initTrade({ ...query, comment: '2' });
       })
       .then(() => Trade.find(query).exec())
       .then(trades => {
@@ -61,6 +61,15 @@ describe('Init trade controller', () => {
   });
 
   it('reject if requesting to trade for one\'s own book', done => {
+    return initTrade({
+      requester: testBook.user,
+      book: testBook._id,
+      comment: 'some comments',
+    })
+      .then(done.fail, done);
+  });
+
+  it('reject if no comment (leading/trailing spaces excluded)', done => {
     return initTrade({ requester: testBook.user, book: testBook._id })
       .then(done.fail, done);
   });
