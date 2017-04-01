@@ -68,6 +68,7 @@
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
+    "supertest": "^3.0.0",
     "typescript": "^2.2.2",
     "url-loader": "^0.5.8",
     "webpack": "^2.3.2",
