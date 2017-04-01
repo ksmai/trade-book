@@ -49,5 +49,14 @@ describe('List pending controller', () => {
       })
       .then(done, done.fail);
   });
+
+  it('does not list trades already rejected by the user', done => {
+    return Trade.findByIdAndUpdate(testTrade._id, { isRejected: true })
+      .then(() => listPending({ user: testBook.user }))
+      .then(trades => {
+        expect(trades.length).toEqual(0);
+      })
+      .then(done, done.fail);
+  });
 });
 

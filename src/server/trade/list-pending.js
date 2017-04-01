@@ -10,7 +10,7 @@ function listPending({ user }) {
       const bookIDs = books.map(book => book._id);
 
       return Trade
-        .find({ book: { $in: bookIDs } })
+        .find({ book: { $in: bookIDs }, isRejected: false })
         .populate('book')
         .populate('requester', { hash: 0 })
         .exec();
