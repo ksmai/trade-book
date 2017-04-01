@@ -10,6 +10,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
+import apiRouter from './api';
 import { authRouter } from './auth';
 import webpackDevConfig from '../../webpack.config';
 
@@ -39,6 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(authRouter);
+app.use('/api/v1', apiRouter);
 
 const compiler = webpack(webpackDevConfig);
 app.use(webpackDevMiddleware(compiler));

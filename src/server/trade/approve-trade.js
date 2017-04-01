@@ -13,7 +13,7 @@ function approveTrade({ user, approval, tradeID }) {
     .populate('book')
     .exec()
     .then(trade => {
-      const found = trade && trade.book.user.toString() === user;
+      const found = trade && trade.book.user.toString() === user.toString();
       if(!found) {
         throw new Error(`Trade "${tradeID}" not found`);
       }
