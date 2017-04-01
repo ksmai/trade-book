@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { UserService } from './core/user.service';
+
 @Component({
   selector: 'trade-book-app',
   templateUrl: './app.component.html',
@@ -7,5 +9,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   test = 'Hello World NG2';
+  user: any;
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit() {
+    this.user = this.userService.loadUser();
+  }
+
+  reload() {
+    this.userService.loadUser();
+  }
 }
 

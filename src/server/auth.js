@@ -66,7 +66,7 @@ function meHandler(req, res) {
   const user = req.user.toObject();
   delete user.hash;
   delete user.__v;
-  res.json(user);
+  res.json({ user });
 }
 
 function ensureLogin(req, res, next) {
