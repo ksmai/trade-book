@@ -47,5 +47,32 @@ describe('Withdraw trade controller', () => {
       })
       .then(done, done.fail);
   });
+
+  it('cannot withdraw a completed request', done => {
+    const tradeID = testTrade._id;
+    const requester = testTrade.requester;
+    const params = { tradeID, requester };
+    const query = { requester, _id: tradeID };
+
+    return Trade
+      .findOneAndUpdate(query, { isCompleted: true }, { new: true })
+      .exec()
+      .then(trade => {
+        expect(trade._id.toString()).toEqual(tradeID);
+        expect(trade.isCompleted).toEqual(true);
+
+        return Trade.find(query).exec();
+      })
+      .then(trades => {
+        expect(trades.length).toEqual(1);
+
+        return withdrawTrade(params);
+      })
+      .then(() => Trade.find(query).exec())
+      .then(trades => {
+        expect(trades.length).toEqual(1);
+      })
+      .then(done, done.fail);
+  });
 });
 
