@@ -41,7 +41,7 @@ describe('Add book controller', () => {
       .then(() => Book.find({ user }))
       .then(books => {
         expect(books.length).toEqual(1);
-        
+
         return books[0];
       })
       .then(book => {

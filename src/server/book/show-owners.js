@@ -7,7 +7,7 @@ function showOwners({ volumeID }) {
       return Book
         .find({ info: info._id })
         .populate('user', { hash: 0 })
-        .exec() 
+        .exec();
     });
 }
 

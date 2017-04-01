@@ -12,7 +12,7 @@ function checkCredentials(username, password, done) {
     .catch(err => {
       const mismatch = err.message &&
         err.message.match(/not (?:found|match)/i);
-      if(mismatch) {
+      if (mismatch) {
         return done(null, false);
       }
 
@@ -25,7 +25,7 @@ function deserializeUser(id, done) {
     .findById(id)
     .exec()
     .then(user => {
-      if(user) {
+      if (user) {
         return done(null, user);
       }
 
@@ -38,8 +38,11 @@ passport.use(new LocalStrategy(checkCredentials));
 passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser(deserializeUser);
 
+// "next" is needed for express to identify the function as
+// an error handler
+/* eslint-disable-next-line no-unused-vars: "off" */
 function authErrorHandler(err, req, res, next) {
-  if(err) {
+  if (err) {
     return res.status(400).end();
   }
 }
@@ -67,17 +70,17 @@ function meHandler(req, res) {
 }
 
 function ensureLogin(req, res, next) {
-  if(req.user) {
+  if (req.user) {
     return next();
   }
-  
+
   const msg = 'Login is required.';
 
   return res.status(401).send(msg).end();
 }
 
 function ensureNoLogin(req, res, next) {
-  if(!req.user) {
+  if (!req.user) {
     return next();
   }
 

@@ -19,7 +19,7 @@ function completeTrade({ requester, tradeID }) {
 
   return Trade.findOneAndUpdate(query, updates, options)
     .then(trade => {
-      if(!trade) {
+      if (!trade) {
         throw new Error(`Trade "${tradeID}" not found`);
       }
 

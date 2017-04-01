@@ -3,12 +3,6 @@ import User from './user.model';
 
 function login({ name, password }) {
   const query = { name };
-  const updates = { $set: { lastLogin: new Date() } };
-  const options = {
-    new: true,
-    upsert: false,
-    runValidators: true,
-  };
 
   return User
     .findOne(query)
@@ -22,7 +16,7 @@ function login({ name, password }) {
         .then(match => match ? user : null);
     })
     .then(user => {
-      if(!user) {
+      if (!user) {
         throw new Error('Password does not match.');
       }
 

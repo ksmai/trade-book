@@ -11,7 +11,7 @@ function updateInfo({ name, email, location, displayName }) {
 
   return User.findOneAndUpdate(query, updates, options)
     .then(user => {
-      if(!user) {
+      if (!user) {
         throw new Error(`User "${name}" not found.`);
       }
 

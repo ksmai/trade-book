@@ -52,6 +52,5 @@ describe('Signup controller', () => {
     return signup({ name: testUser.name, password: testUser.password })
       .then(done.fail, done);
   });
-
 });
 

@@ -21,7 +21,7 @@ function userHandler(req, res, next) {
       displayName: req.body.displayName,
     });
   }
-  
+
   return action.then(user => {
     const userObj = user.toObject();
     delete userObj.hash;

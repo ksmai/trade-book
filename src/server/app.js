@@ -46,6 +46,8 @@ const compiler = webpack(webpackDevConfig);
 app.use(webpackDevMiddleware(compiler));
 app.use(webpackHotMiddleware(compiler));
 
+// for express error handler
+/* eslint-disable-next-line no-unused-vars: "off' */
 app.use((err, req, res, next) => res.status(500).end());
 
 app.listen(PORT, () => console.log(`Development Server running on port ${PORT}`));

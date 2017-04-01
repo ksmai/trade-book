@@ -4,8 +4,8 @@ import listBooks from './list-books';
 
 function listBooksHandler(req, res, next) {
   return listBooks({
-    skip: parseInt(req.query.skip) || 0,
-    limit: parseInt(req.query.limit) || 10,
+    skip: parseInt(req.query.skip, 10) || 0,
+    limit: parseInt(req.query.limit, 10) || 10,
   })
   .then(books => {
     return res.json({ books });

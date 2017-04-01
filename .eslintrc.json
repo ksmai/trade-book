@@ -1,0 +1,24 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env": {
+    "node": true,
+    "jasmine": true
+  },
+  "extends": "airbnb-base",
+  "rules": {
+    "linebreak-style": "off",
+    "no-underscore-dangle": "off",
+    "arrow-parens": "off",
+    "arrow-body-style": "off",
+    "no-param-reassign": "off",
+    "no-useless-escape": "off",
+    "no-confusing-arrow": "off",
+    "no-console": "off"
+  }
+}

@@ -1,5 +1,6 @@
-import BookInfo from './book-info.model';
 import request from 'request';
+
+import BookInfo from './book-info.model';
 
 function findBookInfo({ volumeID }) {
   return BookInfo
@@ -9,7 +10,7 @@ function findBookInfo({ volumeID }) {
       if (info) {
         return info;
       }
-      
+
       const url = `https://www.googleapis.com/books/v1/volumes/${volumeID}`;
 
       return new Promise((resolve, reject) => {
@@ -19,8 +20,11 @@ function findBookInfo({ volumeID }) {
           }
 
           const result = JSON.parse(body);
+          if (result.id !== volumeID) {
+            return reject(new Error('Result mismatched'));
+          }
+
           const {
-            id: volumeID,
             volumeInfo: {
               title,
               subtitle,
@@ -33,12 +37,13 @@ function findBookInfo({ volumeID }) {
           const thumbnail = originalThumbnail
             .replace(/^https?:/, '')
             .replace(/&imgtk=[^&]+/, '');
-          
+
           const bookInfo = { volumeID, title, subtitle, thumbnail };
-          resolve(BookInfo.create(bookInfo));
+
+          return resolve(BookInfo.create(bookInfo));
+        });
       });
     });
-  });
 }
 
 export default findBookInfo;

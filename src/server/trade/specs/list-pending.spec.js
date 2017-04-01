@@ -9,7 +9,7 @@ import {
   testUser,
   testTrade,
   testBook,
-  testBookInfo
+  testBookInfo,
 } from '../../test-util';
 
 describe('List pending controller', () => {

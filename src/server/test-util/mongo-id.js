@@ -6,7 +6,7 @@ function generateID() {
     .join('');
 
   return `${timestamp}${suffix}`.toLowerCase();
-};
+}
 
 console.log(generateID());
 

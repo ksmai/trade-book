@@ -1,9 +1,8 @@
 import bcrypt from 'bcrypt';
 import login from './login';
-import User from './user.model';
 
 function changePassword({ name, oldPassword, newPassword }) {
-  if(newPassword.length < 8) {
+  if (newPassword.length < 8) {
     const err = new Error('Password must have at least 8 characters');
 
     return Promise.reject(err);
@@ -18,7 +17,7 @@ function changePassword({ name, oldPassword, newPassword }) {
           user.lastLogin = new Date();
 
           return user.save();
-        })
+        });
     });
 }
 

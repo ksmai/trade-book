@@ -14,8 +14,8 @@ function initTrade({ requester, book, comment }) {
   return Book
     .findById(book)
     .exec()
-    .then(book => {
-      if(!book || book.user.toString() === requester) {
+    .then(bookFound => {
+      if (!bookFound || bookFound.user.toString() === requester) {
         throw new Error('Cannot create the trade');
       }
 

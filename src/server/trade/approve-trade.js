@@ -14,18 +14,18 @@ function approveTrade({ user, approval, tradeID }) {
     .exec()
     .then(trade => {
       const found = trade && trade.book.user.toString() === user.toString();
-      if(!found) {
+      if (!found) {
         throw new Error(`Trade "${tradeID}" not found`);
       }
 
-      if(approval) {
+      if (approval) {
         trade.isAccepted = true;
       } else {
         trade.isRejected = true;
       }
 
       return trade.save();
-    })
+    });
 }
 
 export default approveTrade;

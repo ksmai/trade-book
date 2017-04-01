@@ -150,7 +150,7 @@ describe('Trade routes', () => {
         expect(listPending.default).toHaveBeenCalledWith({
           user: userID,
         });
-        expect(res.body).toEqual({ trades: val })
+        expect(res.body).toEqual({ trades: val });
       })
       .then(done, done.fail);
   });

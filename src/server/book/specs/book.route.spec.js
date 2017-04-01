@@ -73,7 +73,7 @@ describe('Book routes', () => {
         expect(showOwners.default).toHaveBeenCalledWith({ volumeID });
         expect(res.body).toEqual({
           volumeID,
-          books: []
+          books: [],
         });
       })
       .then(done, done.fail);
@@ -94,6 +94,5 @@ describe('Book routes', () => {
       })
       .then(done, done.fail);
   });
-
 });
 
