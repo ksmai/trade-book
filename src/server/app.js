@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
 import helmet from 'helmet';
+import historyApiFallback from 'connect-history-api-fallback';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import path from 'path';
@@ -43,9 +44,12 @@ app.use(authRouter);
 app.use('/api/v1', apiRouter);
 
 const compiler = webpack(webpackDevConfig);
-app.use(webpackDevMiddleware(compiler));
+const instance = webpackDevMiddleware(compiler);
+app.use(instance);
 app.use(webpackHotMiddleware(compiler));
 
+app.use(historyApiFallback());
+app.use(instance);
 // for express error handler
 /* eslint-disable-next-line no-unused-vars: "off' */
 app.use((err, req, res, next) => res.status(500).end());

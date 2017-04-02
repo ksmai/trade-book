@@ -16,6 +16,7 @@ const config = {
   output: {
     path: DIST,
     filename: '[name].bundle.js',
+    publicPath: '/',
   },
 
   resolve: {
