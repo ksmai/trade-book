@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 import { User } from './user';
@@ -12,35 +13,49 @@ import { User } from './user';
 @Injectable()
 export class AuthService {
   private user: Observable<User>;
-  private loadUserStream: Subject<null>;
+  private loadUserStream: Subject<User>;
 
   constructor(private http: Http) {
-    this.loadUserStream = new Subject<null>();
-    this.user = this.loadUserStream.switchMap(() => this.getData());
-    this.loadUser();
+    this.loadUserStream = new Subject<User>();
+    this.user = this.loadUserStream
+      .switchMap(user => user ? Observable.of(user) : this.getData())
+      .share();
   }
 
   signup(username: string, password: string): Observable<boolean> {
     return this.http.post('/signup', { username, password })
-      .map(() => true)
+      .map(res => {
+        const user = res.json().user;
+        this.loadUserStream.next(user);
+
+        return true;
+      })
       .catch(() => Observable.of(false));
   }
 
   login(username: string, password: string): Observable<boolean> {
     return this.http.post('/login', { username, password })
-      .map(() => true)
+      .map(res => {
+        const user = res.json().user;
+        this.loadUserStream.next(user);
+
+        return true;
+      })
       .catch(() => Observable.of(false));
   }
 
   logout(): Observable<boolean> {
     return this.http.get('/logout')
-      .map(() => true)
+      .map(() => {
+        this.loadUserStream.next(null);
+
+        return true;
+      })
       .catch(() => Observable.of(false));
   }
 
   loadUser(): Observable<User> {
-    this.loadUserStream.next(null);
-    this.getData();
+    setTimeout(() => this.loadUserStream.next(null), 0);
 
     return this.user;
   }

@@ -8,7 +8,12 @@ import signup from './user/signup';
 
 function checkCredentials(username, password, done) {
   return login({ password, name: username })
-    .then(user => done(null, user))
+    .then(user => {
+      const userObj = user.toObject();
+      delete userObj.hash;
+
+      return done(null, userObj);
+    })
     .catch(err => {
       const mismatch = err.message &&
         err.message.match(/not (?:found|match)/i);
@@ -23,6 +28,7 @@ function checkCredentials(username, password, done) {
 function deserializeUser(id, done) {
   return User
     .findById(id)
+    .select({ hash: 0 })
     .exec()
     .then(user => {
       if (user) {
@@ -59,7 +65,7 @@ function logoutHandler(req, res) {
 }
 
 function loginHandler(req, res) {
-  res.send('Success');
+  res.json({ user: req.user });
 }
 
 function meHandler(req, res) {
