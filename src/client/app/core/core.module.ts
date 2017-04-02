@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-import { UserService } from './user.service';
+import { AuthService } from './auth.service';
+import { NameService } from './name.service';
 
 @NgModule({
   imports: [
@@ -9,7 +10,8 @@ import { UserService } from './user.service';
   ],
   exports: [],
   providers: [
-    UserService,
+    AuthService,
+    NameService,
   ],
 })
 export class CoreModule {

@@ -10,7 +10,7 @@ import 'rxjs/add/observable/of';
 import { User } from './user';
 
 @Injectable()
-export class UserService {
+export class AuthService {
   private user: Observable<User>;
   private loadUserStream: Subject<null>;
 
@@ -20,6 +20,24 @@ export class UserService {
     this.loadUser();
   }
 
+  signup(username: string, password: string): Observable<boolean> {
+    return this.http.post('/signup', { username, password })
+      .map(() => true)
+      .catch(() => Observable.of(false));
+  }
+
+  login(username: string, password: string): Observable<boolean> {
+    return this.http.post('/login', { username, password })
+      .map(() => true)
+      .catch(() => Observable.of(false));
+  }
+
+  logout(): Observable<boolean> {
+    return this.http.get('/logout')
+      .map(() => true)
+      .catch(() => Observable.of(false));
+  }
+
   loadUser(): Observable<User> {
     this.loadUserStream.next(null);
     this.getData();
@@ -27,7 +45,7 @@ export class UserService {
     return this.user;
   }
 
-  getData(retry = 0): Observable<User> {
+  private getData(retry = 0): Observable<User> {
     if (retry > 2) {
       return Observable.of(null);
     }
