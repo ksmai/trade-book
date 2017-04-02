@@ -69,6 +69,20 @@ function meHandler(req, res) {
   res.json({ user });
 }
 
+function checkNameHandler(req, res, next) {
+  return User
+    .findOne({ name: req.params.name })
+    .exec()
+    .then(user => {
+      if(!user) {
+        return res.status(200).end();
+      }
+
+      return res.status(400).end();
+    })
+    .catch(next);
+}
+
 function ensureLogin(req, res, next) {
   if (req.user) {
     return next();
@@ -105,6 +119,7 @@ authRouter.post('/signup',
 
 authRouter.get('/me', ensureLogin, meHandler);
 authRouter.get('/logout', ensureLogin, logoutHandler);
+authRouter.get('/checkname/:name', checkNameHandler);
 authRouter.use(authErrorHandler);
 
 export { authRouter, ensureLogin, ensureNoLogin };
