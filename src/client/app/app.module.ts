@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LandingModule } from './landing/landing.module';
 import { SignupModule } from './signup/signup.module';
 import { LoginModule } from './login/login.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { LoginModule } from './login/login.module';
     LandingModule,
     SignupModule,
     LoginModule,
+    UserModule,
     AppRoutingModule,
   ],
 

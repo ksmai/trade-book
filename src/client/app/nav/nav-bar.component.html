@@ -3,7 +3,9 @@
   <div *ngIf="userStream | async as user; else guest">
     Welcome, {{user.displayName || user.name}}!
     <ul>
-      <li><button (click)="logout()">Logout</button></li>
+      <li><a routerLink="/info">My Info</a></li>
+      <li><a routerLink="/password">Password</a></li>
+      <li><a routerLink="/" (click)="logout()">Logout</a></li>
     </ul>
   </div>
   <ng-template #guest>
