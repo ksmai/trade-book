@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/share';
 import 'rxjs/add/observable/of';
 
 @Injectable()
@@ -18,11 +19,12 @@ export class NameService {
     this.availability = this.checkStream
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap((name: string) => this.check(name));
+      .switchMap((name: string) => this.check(name))
+      .share();
   }
 
   checkAvailability(name: string): Observable<boolean> {
-    this.checkStream.next(name);
+    setTimeout(() => this.checkStream.next(name), 0);
 
     return this.availability;
   }

@@ -1,6 +1,6 @@
 <h2>Signup</h2>
 <form (ngSubmit)="signup()" #signupForm="ngForm">
-  <input type="text" name="username" [(ngModel)]="username" placeholder="Username" #nameCtrl="ngModel" required maxlength="255">
+  <input type="text" name="username" [(ngModel)]="username" placeholder="Username" #nameCtrl="ngModel" required maxlength="255" nameAvailable>
   <input type="password" name="password0" [(ngModel)]="password0" placeholder="Password" #pwCtrl0="ngModel" required minlength="8" [sameAs]="pwCtrl1">
   <input type="password" name="password1" [(ngModel)]="password1" placeholder="Confirm password" #pwCtrl1="ngModel" required minlength="8" [sameAs]="pwCtrl0">
   <button type="submit" [disabled]="!signupForm.form.valid">Signup</button>
