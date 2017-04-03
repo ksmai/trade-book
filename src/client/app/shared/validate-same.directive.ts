@@ -13,6 +13,7 @@ import { FormGroup, NG_VALIDATORS, Validator, AbstractControl } from '@angular/f
 })
 export class ValidateSameDirective implements Validator {
   @Input() sameAs: AbstractControl;
+  @Input() nameOfOther: string;
 
   validate(control: AbstractControl): { [key: string]: any } {
     if (!this.sameAs) {
@@ -30,14 +31,24 @@ export class ValidateSameDirective implements Validator {
       // directive against each other, there will always be at least
       // one of them with "validateSame" error because Angular
       // only validates the changed field
+      //
+      // Optionally pass in the name of the sameAs control
+      // to avoid validation of unrelated fields
       if (revalidate) {
         const formGroup: FormGroup = <FormGroup>control.parent;
         const ctrls: { [key: string]: any } = { ...formGroup.controls };
-        for(const key in ctrls) {
-          ctrls[key] = ctrls[key].value;
+
+        if (this.nameOfOther) {
+          setTimeout(() => formGroup.patchValue({
+            [this.nameOfOther]: ctrls[this.nameOfOther].value,
+          }), 0);
+        } else {
+          for(const key in ctrls) {
+            ctrls[key] = ctrls[key].value;
+          }
+          // delay patching to prevent infinite loop
+          setTimeout(() => formGroup.patchValue(ctrls), 0);
         }
-        // delay patching to prevent infinite loop
-        setTimeout(() => formGroup.patchValue(ctrls), 0);
       }
 
       return null;
