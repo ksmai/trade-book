@@ -1,2 +1,13 @@
-Update Info
+<h2>Update Personal Info</h2>
+<h5>Optional information to help you trade books more easily!</h5>
+
+<form (ngSubmit)="updateInfo()" #infoForm="ngForm" *ngIf="ready">
+  <input type="email" placeholder="Email" [(ngModel)]="email" maxlength="256" name="email" pattern="[^@ ]+@[^@ ]+">
+  <input type="text" placeholder="Display Name" [(ngModel)]="displayName" maxlength="1024" name="displayName">
+  <textarea placeholder="Location" [(ngModel)]="location" maxlength="1024" name="location"></textarea>
+  <button type="submit" [disabled]="!infoForm.form.valid">Update</button>
+</form>
+
+<div *ngIf="success">Information updated successfully.</div>
+<div *ngIf="error">An error has occurred. Please try again later.</div>
 

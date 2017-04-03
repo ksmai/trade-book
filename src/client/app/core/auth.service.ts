@@ -54,6 +54,17 @@ export class AuthService {
       .catch(() => Observable.of(false));
   }
 
+  updateInfo(info: { [key: string]: string }): Observable<boolean> {
+    return this.http.put('/api/v1/user', info)
+      .map(res => {
+        const user = res.json().user;
+        this.loadUserStream.next(user);
+
+        return true;
+      })
+      .catch(() => Observable.of(false));
+  }
+
   loadUser(): Observable<User> {
     setTimeout(() => this.loadUserStream.next(null), 0);
 
