@@ -22,7 +22,7 @@
     <dt>Page</dt>
     <dd>{{book[0].volumeInfo.pageCount}}</dd>
 
-    <ng-container *ngIf="book[0].volumeInfo.dimensions.height && book[0].volumeInfo.dimensions.width && book[0].volumeInfo.dimensions.thickness">
+    <ng-container *ngIf="book[0].volumeInfo.dimensions && book[0].volumeInfo.dimensions.height && book[0].volumeInfo.dimensions.width && book[0].volumeInfo.dimensions.thickness">
       <dt>Dimensions</dt>
       <dd>
         {{book[0].volumeInfo.dimensions.height}} (h)

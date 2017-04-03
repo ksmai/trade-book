@@ -1,2 +1,27 @@
-My BOOKS
+<h2>My BOOKS</h2>
+
+<div *ngFor="let book of books | async">
+  <div [routerLink]="['/book', book.info.volumeID]">
+    <img [src]="book.info.thumbnail" [alt]="book.info.title">
+    <h3>{{book.info.title}}</h3>
+    <h5>{{book.info.subtitle}}</h5>
+  </div>
+  <button type="button" (click)="remove(book._id)">Remove</button>
+</div>
+
+<div *ngIf="error; else addBook">
+  An error has occurred! (TODO)
+</div>
+
+<ng-template #addBook>
+  <input type="text" (keyup)="search(termCtrl.value)" #termCtrl>
+  <div *ngFor="let result of searchResult | async" (click)="add(result.id)">
+    <img [src]="result.volumeInfo.imageLinks.smallThumbnail" [alt]="result.volumeInfo.title">
+    <h3>{{result.volumeInfo.title}}</h3>
+    <h5>{{result.volumeInfo.subtitle}}</h5>
+  </div>
+</ng-template>
+
+<hr>
+{{books|async|json}}
 
