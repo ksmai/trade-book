@@ -1,0 +1,74 @@
+<div *ngIf="bookStream | async as book">
+  <h2>{{book[0].volumeInfo.title}}</h2>
+  <h5>{{book[0].volumeInfo.subtitle}}</h5>
+
+  <img [src]="book[0].volumeInfo.imageLinks.large || book[0].volumeInfo.imageLinks.thumbnail" [alt]="book[0].volumeInfo.title">
+
+  <dl>
+    <dt>Author(s)</dt>
+    <dd *ngFor="let author of book[0].volumeInfo.authors">{{author}}</dd>
+
+    <dt>Publisher</dt>
+    <dd>{{book[0].volumeInfo.publisher}} ({{book[0].volumeInfo.publishedDate}})</dd>
+
+    <dt>Description</dt>
+    <dd [innerHTML]="book[0].volumeInfo.description"></dd>
+
+    <ng-container *ngFor="let id of book[0].volumeInfo.industryIdentifiers">
+      <dt>{{id.type}}</dt>
+      <dd>{{id.identifier}}</dd>
+    </ng-container>
+
+    <dt>Page</dt>
+    <dd>{{book[0].volumeInfo.pageCount}}</dd>
+
+    <ng-container *ngIf="book[0].volumeInfo.dimensions.height && book[0].volumeInfo.dimensions.width && book[0].volumeInfo.dimensions.thickness">
+      <dt>Dimensions</dt>
+      <dd>
+        {{book[0].volumeInfo.dimensions.height}} (h)
+        &times; {{book[0].volumeInfo.dimensions.width}} (w)
+        &times; {{book[0].volumeInfo.dimensions.thickness}} (t)
+      </dd>
+    </ng-container>
+
+    <ng-container *ngIf="book[0].volumeInfo.mainCategory || book[0].volumeInfo.categories">
+      <dt>Category</dt>
+      <dd>{{book[0].volumeInfo.mainCategory}}</dd>
+      <ng-container *ngFor="let category of book[0].volumeInfo.categories">
+        <dd>{{category}}</dd>
+      </ng-container>
+    </ng-container>
+
+    <dt>Rating</dt>
+    <dd>{{book[0].volumeInfo.averageRating}}</dd>
+
+    <dt>Language</dt>
+    <dd>{{book[0].volumeInfo.language}}</dd>
+  </dl>
+
+  <h3>People offering this book</h3>
+  <ng-container *ngIf="book[1].length > 0; else noOffer">
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Location</th>
+        <th>Last Login</th>
+      </tr>
+      <tr *ngFor="let copy of book[1]">
+        <td>{{copy.user.displayName || copy.user.name}}</td>
+        <td>{{copy.user.email || '-'}}</td>
+        <td>{{copy.user.location || '-'}}</td>
+        <td>{{copy.user.lastLogin | date}}</td>
+      </tr>
+    </table>
+  </ng-container>
+  <ng-template #noOffer>
+    No offer for this book at the moment.
+  </ng-template>
+</div>
+
+<hr>
+Book Detail Debug
+{{bookStream|async|json}}
+

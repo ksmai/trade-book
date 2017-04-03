@@ -9,6 +9,7 @@ import { LandingModule } from './landing/landing.module';
 import { SignupModule } from './signup/signup.module';
 import { LoginModule } from './login/login.module';
 import { UserModule } from './user/user.module';
+import { BookModule } from './book/book.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { UserModule } from './user/user.module';
     SignupModule,
     LoginModule,
     UserModule,
+    BookModule,
     AppRoutingModule,
   ],
 
