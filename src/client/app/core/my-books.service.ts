@@ -19,6 +19,11 @@ export class MyBooksService {
   constructor(private http: Http) {
   }
 
+  clearCache(): void {
+    this.myBooks$ = null;
+    this.myBooks = null;
+  }
+
   fetch(refresh = false): Observable<Array<any>> {
     if (!this.myBooks$ || refresh) {
       this.myBooks$ = this.http

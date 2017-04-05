@@ -14,6 +14,8 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 import { User } from './user';
+import { MyBooksService } from './my-books.service';
+import { TradeService } from './trade.service';
 
 @Injectable()
 export class AuthService {
@@ -21,11 +23,19 @@ export class AuthService {
   private loadUserStream: Subject<User>;
   private cachedData: User;
 
-  constructor(private http: Http) {
+  constructor(
+    private http: Http,
+    private myBooksService: MyBooksService,
+    private tradeService: TradeService
+  ) {
     this.loadUserStream = new Subject<User>();
     this.user = this.loadUserStream
       .switchMap(user => user ? Observable.of(user) : this.getData())
       .share();
+  }
+
+  clearCache(): void {
+    this.cachedData = null;
   }
 
   signup(username: string, password: string): Observable<boolean> {
@@ -53,6 +63,9 @@ export class AuthService {
   logout(): Observable<boolean> {
     return this.http.get('/logout')
       .map(() => {
+        this.clearCache();
+        this.tradeService.clearCache();
+        this.myBooksService.clearCache();
         this.loadUserStream.next(null);
 
         return true;

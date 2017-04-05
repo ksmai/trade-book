@@ -23,6 +23,13 @@ export class TradeService {
   constructor(private http: Http) {
   }
 
+  clearCache(): void {
+    this.myRequests$ = null;
+    this.theirRequests$ = null;
+    this.myRequests = null;
+    this.theirRequests = null;
+  }
+
   fetchMyRequests(refresh = false): Observable<Array<any>> {
     if (!this.myRequests$ || refresh) {
       this.myRequests$ = this.http
