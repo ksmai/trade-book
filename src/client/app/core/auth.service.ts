@@ -6,7 +6,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/retryWhen';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 
 import { User } from './user';
 
@@ -76,20 +81,20 @@ export class AuthService {
     return Observable.of(this.cachedData);
   }
 
-  private getData(retry = 0): Observable<User> {
-    if (retry > 2) {
-      return Observable.of(null);
-    }
-
+  private getData(): Observable<User> {
     return this.http.get('/me')
       .map(res => this.cachedData = res.json().user)
-      .catch(err => {
-        if(err.status === 401) {
-          return Observable.of(null);
-        }
+      .retryWhen(this.retry)
+      .catch(err => Observable.of(null));
+  }
 
-        return this.getData(retry + 1);
-      });
+  private retry(errors: Observable<any>): Observable<any> {
+    return errors
+      .mergeMap(error => error.status === 401 || error.status === 400 ?
+        Observable.throw(error) :
+        Observable.of(error))
+      .delay(1000)
+      .take(2);
   }
 }
 
