@@ -2,8 +2,14 @@ import Trade from './trade.model';
 import Book from '../book/book.model';
 
 function initTrade({ requester, book, comment }) {
-  const query = { requester, book };
-  const updates = { requester, book, comment };
+  const query = { requester, book, isCompleted: false };
+  const updates = {
+    requester,
+    book,
+    comment,
+    isAccepted: false,
+    isRejected: false,
+  };
   const options = {
     new: true,
     upsert: true,
