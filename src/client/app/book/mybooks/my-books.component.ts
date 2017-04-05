@@ -8,13 +8,12 @@ import 'rxjs/add/operator/debounceTime';
 
 import 'rxjs/add/observable/of';
 
-import { MyBooksService } from './my-books.service';
+import { MyBooksService } from '../../core/my-books.service';
 import { SearchBookService } from '../search-book.service';
 
 @Component({
   templateUrl: './my-books.component.html',
   styleUrls: ['./my-books.component.scss'],
-  providers: [MyBooksService],
 })
 export class MyBooksComponent implements OnInit {
   books: Observable<any>;
