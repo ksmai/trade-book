@@ -1,6 +1,7 @@
 import { Mockgoose } from 'mockgoose';
 import mongoose from 'mongoose';
 
+import User from '../../user/user.model';
 import Book from '../../book/book.model';
 import BookInfo from '../../book-info/book-info.model';
 import Trade from '../trade.model';
@@ -27,10 +28,12 @@ describe('List pending controller', () => {
       Trade.remove({}),
       Book.remove({}),
       BookInfo.remove({}),
+      User.remove({}),
     ]).then(() => Promise.all([
       Trade.create(testTrade),
       Book.create(testBook),
       BookInfo.create(testBookInfo),
+      User.create(testUser),
     ])).then(done, done.fail);
   });
 

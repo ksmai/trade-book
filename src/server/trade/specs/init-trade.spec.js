@@ -30,8 +30,14 @@ describe('Init trade controller', () => {
       .then(done, done.fail);
   });
 
-  it('initializes a trade', done => {
+  it('initializes a trade and set requestDate', done => {
+    const now = Date.now();
+
     return initTrade({ requester, book: testBook._id, comment: 'abc' })
+      .then(trade => {
+        expect(trade.requestDate).not.toBeLessThan(now);
+        expect(trade.requestDate).not.toBeGreaterThan(Date.now());
+      })
       .then(done, done.fail);
   });
 

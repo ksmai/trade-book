@@ -27,6 +27,7 @@ describe('Trade routes', () => {
       next();
     });
     app.use(tradeRouter);
+    app.use((err, req, res, next) => res.sendStatus(400));
     request = supertest(app);
   });
 
@@ -102,6 +103,14 @@ describe('Trade routes', () => {
         });
         expect(res.body).toEqual({ trade: val });
       })
+      .then(done, done.fail);
+  });
+
+  it('reject unknown action on trade', done => {
+    return request
+      .put('/trade')
+      .send({ tradeID, action: 'somethingunknowntotheserver' })
+      .expect(400)
       .then(done, done.fail);
   });
 

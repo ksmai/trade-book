@@ -9,7 +9,12 @@ function completeTrade({ requester, tradeID }) {
     isCompleted: false,
   };
 
-  const updates = { $set: { isCompleted: true } };
+  const updates = {
+    $set: {
+      isCompleted: true,
+      completeDate: new Date(),
+    }
+  };
 
   const options = {
     new: true,

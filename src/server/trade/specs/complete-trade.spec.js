@@ -32,10 +32,15 @@ describe('Complete trade controller', () => {
       .then(done, done.fail);
   });
 
-  it('complete a trade', done => {
+  it('complete a trade and set the completeDate', done => {
     const { requester, _id: tradeID } = testTrade;
+    const now = Date.now();
 
     return completeTrade({ requester, tradeID })
+      .then(trade => {
+        expect(trade.completeDate).not.toBeLessThan(now);
+        expect(trade.completeDate).not.toBeGreaterThan(Date.now());
+      })
       .then(done, done.fail);
   });
 

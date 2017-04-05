@@ -32,6 +32,13 @@ const tradeSchema = new mongoose.Schema({
     minlength: 1,
     required: true,
   },
+  requestDate: {
+    type: Date,
+    default: Date.now,
+  },
+  completeDate: {
+    type: Date,
+  },
 });
 
 export default mongoose.model('Trade', tradeSchema, 'trades');
