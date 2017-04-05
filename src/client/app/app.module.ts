@@ -10,6 +10,7 @@ import { SignupModule } from './signup/signup.module';
 import { LoginModule } from './login/login.module';
 import { UserModule } from './user/user.module';
 import { BookModule } from './book/book.module';
+import { TradeModule } from './trade/trade.module';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { BookModule } from './book/book.module';
     LoginModule,
     UserModule,
     BookModule,
+    TradeModule,
     AppRoutingModule,
   ],
 

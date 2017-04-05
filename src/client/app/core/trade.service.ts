@@ -1,0 +1,85 @@
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/retryWhen';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/share';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
+
+@Injectable()
+export class TradeService {
+  private url = '/api/v1/trade';
+
+  constructor(private http: Http) {
+  }
+
+  listMyRequests(): Observable<Array<any>> {
+    return this.http
+      .get(this.url)
+      .map(res => res.json().trades)
+      .retryWhen(this.retry)
+      .share();
+  }
+
+  listTheirRequests(): Observable<Array<any>> {
+    return this.http
+      .get(`${this.url}?pending=1`)
+      .map(res => res.json().trades)
+      .retryWhen(this.retry)
+      .share();
+  }
+
+  approveRequest(tradeID: string, approval = true): Observable<boolean> {
+    return this.http
+      .put(this.url, { tradeID, action: approval ? 'accept' : 'reject' })
+      .map(() => true)
+      .retryWhen(this.retry)
+      .catch(() => Observable.of(false));
+  }
+
+  completeRequest(tradeID: string): Observable<boolean> {
+    return this.http
+      .put(this.url, { tradeID, action: 'complete' })
+      .map(() => true)
+      .retryWhen(this.retry)
+      .catch(() => Observable.of(false));
+  }
+
+  withdrawRequest(tradeID: string): Observable<boolean> {
+    return this.http
+      .delete(this.url, { body: { tradeID } })
+      .map(() => true)
+      .retryWhen(this.retry)
+      .catch(() => Observable.of(false));
+  }
+
+  createRequest(bookID: string, comment: string): Observable<boolean> {
+    if (!comment.trim()) {
+      return Observable.of(false);
+    }
+
+    return this.http
+      .post(this.url, { bookID, comment: comment.trim() })
+      .map(() => true)
+      .retryWhen(this.retry)
+      .catch(() => Observable.of(false));
+  }
+
+  private retry(errors: Observable<any>): Observable<any> {
+    return errors
+      .mergeMap(err => {
+        return err.status === 401 || err.status === 400 ?
+          Observable.throw(err) :
+          Observable.of(err);
+      })
+      .delay(1000)
+      .take(2);
+  }
+}
+

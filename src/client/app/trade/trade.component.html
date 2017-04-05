@@ -1,0 +1,63 @@
+<h2>My Trades</h2>
+
+<h3>My Requests</h3>
+<div *ngFor="let req of myRequests | async">
+  <h4>Trade Details</h4>
+  <dl>
+    <dt>Comment</dt>
+    <dd>{{req.comment}}</dd>
+    <dt>Request Date</dt>
+    <dd>{{req.requestDate}}</dd>
+    <dt>Book Info</dt>
+    <dd [routerLink]="['/book', req.book.info.volumeID]">
+      <img [src]="req.book.info.thumbnail" [alt]="req.book.info.title">
+      <h5>{{req.book.info.title}}</h5>
+      <h6>{{req.book.info.subtitle}}</h6>
+    </dd>
+    <dt>Status</dt>
+    <dd>
+      <p *ngIf="req.isCompleted">This trade has been completed on {{req.completeDate}}</p>
+      <p *ngIf="!req.isCompleted && req.isAccepted">This request has been accepted.</p>
+      <p *ngIf="req.isRejected">This request has been rejected.</p>
+      <p *ngIf="!req.isAccepted && !req.isRejected">Pending.</p>
+      <button *ngIf="!req.isCompleted && req.isAccepted" (click)="complete(req._id)">Complete</button>
+      <button *ngIf="!req.isCompleted" (click)="withdraw(req._id)">Withdraw</button>
+    </dd>
+  </dl>
+</div>
+
+<h3>Their Requests</h3>
+<div *ngFor="let req of theirRequests | async | tradeFilter: 'isRejected': false">
+  <h4>Requester Info</h4>
+  <dl>
+    <dt>Comment</dt>
+    <dd>{{req.comment}}</dd>
+    <dt>Name</dt>
+    <dd>{{req.requester.displayName || req.requester.name}}</dd>
+    <dt>Email</dt>
+    <dd>{{req.requester.email || '-'}}</dd>
+    <dt>Location</dt>
+    <dd>{{req.requester.location || '-'}}</dd>
+    <dt>Last Login</dt>
+    <dd>{{req.requester.lastLogin|date}}</dd>
+    <dt>Request Date</dt>
+    <dd>{{req.requestDate|date}}</dd>
+  </dl>
+
+  <h4>Book Requested</h4>
+  <div [routerLink]="['/book', req.book.info.volumeID]">
+    <img [src]="req.book.info.thumbnail" [alt]="req.book.info.title">
+    <h5>{{req.book.info.title}}</h5>
+    <h6>{{req.book.info.subtitle}}</h6>
+  </div>
+
+  <h4>Status</h4>
+  <p *ngIf="req.isCompleted">This trade has been completed on {{req.completeDate|date}}.</p>
+  <p *ngIf="req.isAccepted && !req.isCompleted">You have accepted this trade request</p>
+  <div *ngIf="!req.isAccepted">
+    <button (click)="accept(req._id)">Accept</button>
+    <button (click)="reject(req._id)">Reject</button>
+  </div>
+</div>
+
+

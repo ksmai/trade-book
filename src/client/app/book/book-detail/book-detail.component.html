@@ -54,12 +54,18 @@
         <th>Email</th>
         <th>Location</th>
         <th>Last Login</th>
+        <th>Trade</th>
       </tr>
       <tr *ngFor="let copy of book[1]">
         <td>{{copy.user.displayName || copy.user.name}}</td>
         <td>{{copy.user.email || '-'}}</td>
         <td>{{copy.user.location || '-'}}</td>
         <td>{{copy.user.lastLogin | date}}</td>
+        <td *ngIf="me === copy.user._id">Cannot trade with yourself.</td>
+        <td *ngIf="me !== copy.user._id">
+          <textarea #comment></textarea>
+          <button type="button" (click)="initTrade(copy._id, comment.value)">Request a trade</button>
+        </td>
       </tr>
     </table>
   </ng-container>

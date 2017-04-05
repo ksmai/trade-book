@@ -5,6 +5,8 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 
 import { BookDetailService } from './book-detail.service';
+import { AuthService } from '../../core/auth.service';
+import { TradeService } from '../../core/trade.service';
 
 @Component({
   templateUrl: './book-detail.component.html',
@@ -13,11 +15,14 @@ import { BookDetailService } from './book-detail.service';
 })
 export class BookDetailComponent implements OnInit {
   bookStream: Observable<[any, Array<any>]>;
+  me: string;
 
   constructor(
     private bookDetailService: BookDetailService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private tradeService: TradeService
   ) {
   }
 
@@ -29,6 +34,20 @@ export class BookDetailComponent implements OnInit {
 
       return Observable.of(null);
     });
+
+    this.authService.loadUser()
+      .subscribe(user => {
+        this.me = user._id;
+      });
+  }
+
+  initTrade(id: string, comment: string): void {
+    this.tradeService.createRequest(id, comment)
+      .subscribe(success => {
+        if (success) {
+          this.router.navigate(['/trade']);
+        }
+      });
   }
 }
 
