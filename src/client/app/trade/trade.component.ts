@@ -17,17 +17,17 @@ export class TradeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadMyRequests();
-    this.loadTheirRequests();
+    this.loadMyRequests(true);
+    this.loadTheirRequests(true);
   }
 
-  loadMyRequests(): void {
-    this.myRequests = this.tradeService.listMyRequests()
+  loadMyRequests(refresh = false): void {
+    this.myRequests = this.tradeService.fetchMyRequests(refresh)
       .catch(this.errorHandler);
   }
 
-  loadTheirRequests(): void {
-    this.theirRequests = this.tradeService.listTheirRequests()
+  loadTheirRequests(refresh = false): void {
+    this.theirRequests = this.tradeService.fetchTheirRequests(refresh)
       .catch(this.errorHandler);
   }
 
@@ -35,7 +35,7 @@ export class TradeComponent implements OnInit {
     this.tradeService.approveRequest(id, true)
       .subscribe(success => {
         if (success) {
-          this.loadTheirRequests();
+          this.loadTheirRequests(true);
         }
       });
   }
@@ -44,7 +44,7 @@ export class TradeComponent implements OnInit {
     this.tradeService.approveRequest(id, false)
       .subscribe(success => {
         if (success) {
-          this.loadTheirRequests();
+          this.loadTheirRequests(true);
         }
       });
   }
@@ -53,7 +53,7 @@ export class TradeComponent implements OnInit {
     this.tradeService.withdrawRequest(id)
       .subscribe(success => {
         if (success) {
-          this.loadMyRequests();
+          this.loadMyRequests(true);
         }
       });
   }
@@ -63,7 +63,7 @@ export class TradeComponent implements OnInit {
       .take(1)
       .subscribe(success => {
         if (success) {
-          this.loadMyRequests();
+          this.loadMyRequests(true);
         }
       });
   }

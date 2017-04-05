@@ -17,7 +17,7 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userStream = this.authService.loadUser();
+    this.userStream = this.authService.loadUser(true);
   }
 
   logout(): void {

@@ -18,7 +18,6 @@ import { SearchBookService } from '../search-book.service';
 export class MyBooksComponent implements OnInit {
   books: Observable<any>;
   error = false;
-
   searchResult: Observable<Array<any>>;
   private searchTermStream = new Subject<string>();
 
@@ -29,7 +28,7 @@ export class MyBooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.load();
+    this.load(true);
 
     this.searchResult = this.searchTermStream
       .debounceTime(300)
@@ -37,14 +36,14 @@ export class MyBooksComponent implements OnInit {
       .switchMap((term: string) => this.searchBookService.search(term));
   }
 
-  load(): void {
+  load(refresh = false): void {
     this.books = this.myBooksService
-    .list()
-    .catch(() => {
-      this.error = true;
+      .fetch(refresh)
+      .catch(() => {
+        this.error = true;
 
-      return Observable.of([]);
-    });
+        return Observable.of([]);
+      });
   }
 
   search(term: string): void {
@@ -55,14 +54,14 @@ export class MyBooksComponent implements OnInit {
     this.myBooksService
       .remove(id)
       .take(1)
-      .subscribe(() => this.load());
+      .subscribe(() => this.load(true));
   }
 
   add(id: string): void {
     this.myBooksService
       .add(id)
       .take(1)
-      .subscribe(() => this.load());
+      .subscribe(() => this.load(true));
   }
 }
 

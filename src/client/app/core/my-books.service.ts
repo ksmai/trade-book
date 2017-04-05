@@ -13,16 +13,24 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class MyBooksService {
   private url = '/api/v1/mybook';
+  private myBooks$: Observable<Array<any>>;
+  private myBooks: Array<any>;
 
   constructor(private http: Http) {
   }
 
-  list(): Observable<Array<any>> {
-    return this.http
-      .get(this.url)
-      .map(res => res.json().books)
-      .retryWhen(this.retry)
-      .share();
+  fetch(refresh = false): Observable<Array<any>> {
+    if (!this.myBooks$ || refresh) {
+      this.myBooks$ = this.http
+        .get(this.url)
+        .map(res => this.myBooks = res.json().books)
+        .retryWhen(this.retry)
+        .share();
+    } else if(this.myBooks) {
+      return Observable.of(this.myBooks);
+    }
+
+    return this.myBooks$;
   }
 
   remove(bookID: string): Observable<any> {

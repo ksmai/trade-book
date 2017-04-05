@@ -15,24 +15,40 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class TradeService {
   private url = '/api/v1/trade';
+  private myRequests$: Observable<Array<any>>;
+  private theirRequests$: Observable<Array<any>>;
+  private myRequests: Array<any>;
+  private theirRequests: Array<any>;
 
   constructor(private http: Http) {
   }
 
-  listMyRequests(): Observable<Array<any>> {
-    return this.http
-      .get(this.url)
-      .map(res => res.json().trades)
-      .retryWhen(this.retry)
-      .share();
+  fetchMyRequests(refresh = false): Observable<Array<any>> {
+    if (!this.myRequests$ || refresh) {
+      this.myRequests$ = this.http
+        .get(this.url)
+        .map(res => this.myRequests = res.json().trades)
+        .retryWhen(this.retry)
+        .share();
+    } else if (this.myRequests) {
+      return Observable.of(this.myRequests);
+    }
+
+    return this.myRequests$;
   }
 
-  listTheirRequests(): Observable<Array<any>> {
-    return this.http
-      .get(`${this.url}?pending=1`)
-      .map(res => res.json().trades)
-      .retryWhen(this.retry)
-      .share();
+  fetchTheirRequests(refresh = false): Observable<Array<any>> {
+    if (!this.theirRequests$ || refresh) {
+      this.theirRequests$ = this.http
+        .get(`${this.url}?pending=1`)
+        .map(res => this.theirRequests = res.json().trades)
+        .retryWhen(this.retry)
+        .share();
+    } else if (this.theirRequests) {
+      return Observable.of(this.theirRequests);
+    }
+
+    return this.theirRequests$;
   }
 
   approveRequest(tradeID: string, approval = true): Observable<boolean> {

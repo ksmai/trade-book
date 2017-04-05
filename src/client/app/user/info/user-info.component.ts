@@ -18,7 +18,7 @@ export class UserInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.loadUser()
+    this.authService.loadUser(true)
       .subscribe(user => {
         this.email = user.email || '';
         this.location = user.location || '';

@@ -14,6 +14,7 @@ import { User } from './user';
 export class AuthService {
   private user: Observable<User>;
   private loadUserStream: Subject<User>;
+  private cachedData: User;
 
   constructor(private http: Http) {
     this.loadUserStream = new Subject<User>();
@@ -65,10 +66,14 @@ export class AuthService {
       .catch(() => Observable.of(false));
   }
 
-  loadUser(): Observable<User> {
-    setTimeout(() => this.loadUserStream.next(null), 0);
+  loadUser(refresh = false): Observable<User> {
+    if (!this.cachedData || refresh) {
+      setTimeout(() => this.loadUserStream.next(null), 0);
 
-    return this.user;
+      return this.user;
+    }
+
+    return Observable.of(this.cachedData);
   }
 
   private getData(retry = 0): Observable<User> {
@@ -77,7 +82,7 @@ export class AuthService {
     }
 
     return this.http.get('/me')
-      .map(res => res.json().user)
+      .map(res => this.cachedData = res.json().user)
       .catch(err => {
         if(err.status === 401) {
           return Observable.of(null);
