@@ -7,6 +7,8 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
+import { Observable } from 'rxjs/Observable';
+
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -17,27 +19,30 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
-    const hasLoggedIn = this.authService.isLoggedIn();
+  ): Observable<boolean> {
+    const hasLoggedIn$ = this.authService.isLoggedIn();
     const isLogin = /login/.test(state.url);
 
-    if (isLogin && hasLoggedIn) {
-      this.router.navigate(['/setting']);
+    return hasLoggedIn$
+      .map(hasLoggedIn => {
+        if (isLogin && hasLoggedIn) {
+          this.router.navigate(['/setting']);
 
-      return false;
-    } else if (!isLogin && !hasLoggedIn) {
-      this.router.navigate(['/login']);
+          return false;
+        } else if (!isLogin && !hasLoggedIn) {
+          this.router.navigate(['/login']);
 
-      return false;
-    }
+          return false;
+        }
 
-    return true;
+        return true;
+      });
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
+  ): Observable<boolean> {
     return this.canActivate(route, state);
   }
 }

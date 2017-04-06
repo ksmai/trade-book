@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/delay';
@@ -19,34 +17,35 @@ import { TradeService } from './trade.service';
 
 @Injectable()
 export class AuthService {
-  private user: Observable<User>;
-  private loadUserStream: Subject<User>;
-  private cachedData: User;
+  private subject = new BehaviorSubject<User>(null);
+  private inFlight: Observable<User>;
 
   constructor(
     private http: Http,
     private myBooksService: MyBooksService,
     private tradeService: TradeService
   ) {
-    this.loadUserStream = new Subject<User>();
-    this.user = this.loadUserStream
-      .switchMap(user => user ? Observable.of(user) : this.getData())
-      .share();
   }
 
   clearCache(): void {
-    this.cachedData = null;
+    this.subject.next(null);
   }
 
-  isLoggedIn(): boolean {
-    return !!this.cachedData;
+  isLoggedIn(): Observable<boolean> {
+    if (this.inFlight) {
+      return this.inFlight
+        .map(() => true)
+        .catch(() => Observable.of(false));
+    }
+
+    return Observable.of(!!this.subject.getValue());
   }
 
   signup(username: string, password: string): Observable<boolean> {
     return this.http.post('/signup', { username, password })
       .map(res => {
         const user = res.json().user;
-        this.loadUserStream.next(user);
+        this.subject.next(user);
 
         return true;
       })
@@ -57,8 +56,7 @@ export class AuthService {
     return this.http.post('/login', { username, password })
       .map(res => {
         const user = res.json().user;
-        this.loadUserStream.next(user);
-        this.cachedData = user;
+        this.subject.next(user);
 
         return true;
       })
@@ -71,7 +69,6 @@ export class AuthService {
         this.clearCache();
         this.tradeService.clearCache();
         this.myBooksService.clearCache();
-        this.loadUserStream.next(null);
 
         return true;
       })
@@ -82,8 +79,7 @@ export class AuthService {
     return this.http.put('/api/v1/user', info)
       .map(res => {
         const user = res.json().user;
-        this.loadUserStream.next(user);
-        this.cachedData = user;
+        this.subject.next(user);
 
         return true;
       })
@@ -91,18 +87,20 @@ export class AuthService {
   }
 
   loadUser(refresh = false): Observable<User> {
-    if (!this.cachedData || refresh) {
-      setTimeout(() => this.loadUserStream.next(null), 0);
-
-      return this.user;
+    if (refresh) {
+      this.inFlight = this.getData().take(1);
+      this.inFlight.subscribe(user => {
+        this.subject.next(user);
+        this.inFlight = null;
+      });
     }
 
-    return Observable.of(this.cachedData);
+    return this.subject;
   }
 
   private getData(): Observable<User> {
     return this.http.get('/me')
-      .map(res => this.cachedData = res.json().user)
+      .map(res => res.json().user)
       .retryWhen(this.retry)
       .catch(err => Observable.of(null));
   }
