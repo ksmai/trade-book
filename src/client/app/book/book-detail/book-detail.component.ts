@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
@@ -15,11 +16,12 @@ import { MyBooksService } from '../../core/my-books.service';
   styleUrls: ['./book-detail.component.scss'],
   providers: [BookDetailService],
 })
-export class BookDetailComponent implements OnInit {
+export class BookDetailComponent implements OnInit, OnDestroy {
   bookStream: Observable<[any, Array<any>]>;
   me: string;
   myRequests: Array<any>;
   myBooks: Array<any>;
+  subscriptions: Array<Subscription>;
 
   constructor(
     private bookDetailService: BookDetailService,
@@ -36,19 +38,25 @@ export class BookDetailComponent implements OnInit {
       (params: Params) => this.bookDetailService.fetch(params['volumeID'])
     ).share()
     .catch(() => {
-      this.router.navigate(['/booklist'])
+      this.router.navigate(['../'], { relativeTo: this.activatedRoute });
 
       return Observable.of(null);
     });
 
-    this.authService.loadUser()
+    const userSub = this.authService.loadUser()
       .subscribe(user => this.me = user._id);
 
-    this.tradeService.fetchMyRequests()
+    const tradeSub = this.tradeService.fetchMyRequests()
       .subscribe(myRequests => this.myRequests = myRequests);
 
-    this.myBooksService.fetch()
+    const mybooksSub = this.myBooksService.fetch()
       .subscribe(myBooks => this.myBooks = myBooks);
+
+    this.subscriptions = [userSub, tradeSub, mybooksSub];
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   initTrade(id: string, comment: string): void {

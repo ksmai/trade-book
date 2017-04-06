@@ -49,6 +49,7 @@ export class AuthService {
 
         return true;
       })
+      .take(1)
       .catch(() => Observable.of(false));
   }
 
@@ -60,6 +61,7 @@ export class AuthService {
 
         return true;
       })
+      .take(1)
       .catch(() => Observable.of(false));
   }
 
@@ -72,6 +74,7 @@ export class AuthService {
 
         return true;
       })
+      .take(1)
       .catch(() => Observable.of(false));
   }
 
@@ -83,6 +86,7 @@ export class AuthService {
 
         return true;
       })
+      .take(1)
       .catch(() => Observable.of(false));
   }
 

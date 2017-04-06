@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import 'rxjs/add/operator/take';
 
 import { AuthService } from '../../core/auth.service';
 
@@ -18,6 +19,7 @@ export class SignupComponent {
 
   signup() {
     this.authService.signup(this.username, this.password0)
+      .take(1)
       .subscribe(success => {
         if (success) {
           this.router.navigate(['/']);
