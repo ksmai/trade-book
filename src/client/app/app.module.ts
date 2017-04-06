@@ -6,8 +6,7 @@ import { CoreModule } from './core/core.module';
 import { NavModule } from './nav/nav.module';
 import { AppRoutingModule } from './app-routing.module';
 import { LandingModule } from './landing/landing.module';
-import { SignupModule } from './signup/signup.module';
-import { LoginModule } from './login/login.module';
+import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { BookModule } from './book/book.module';
 import { TradeModule } from './trade/trade.module';
@@ -18,8 +17,7 @@ import { TradeModule } from './trade/trade.module';
     CoreModule,
     NavModule,
     LandingModule,
-    SignupModule,
-    LoginModule,
+    AuthModule,
     UserModule,
     BookModule,
     TradeModule,
