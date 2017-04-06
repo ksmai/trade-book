@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { TradeComponent } from './trade.component';
 import { TradeFilterPipe } from './trade-filter.pipe';
@@ -7,7 +7,7 @@ import { TradeRoutingModule } from './trade-routing.module';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    CommonModule,
     TradeRoutingModule,
   ],
 
@@ -17,8 +17,6 @@ import { TradeRoutingModule } from './trade-routing.module';
   ],
 
   exports: [
-    TradeComponent,
-    TradeFilterPipe,
   ],
 })
 export class TradeModule {

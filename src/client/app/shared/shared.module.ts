@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { ValidateSameDirective } from './validate-same.directive';
 import { NameAvailableDirective } from './name-available.directive';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    CommonModule,
   ],
 
   declarations: [

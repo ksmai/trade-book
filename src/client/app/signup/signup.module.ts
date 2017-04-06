@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { SignupComponent } from './signup.component';
@@ -8,7 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    CommonModule,
     SignupRoutingModule,
     FormsModule,
     SharedModule,
@@ -19,7 +19,6 @@ import { SharedModule } from '../shared/shared.module';
   ],
 
   exports: [
-    SignupComponent,
   ],
 })
 export class SignupModule {

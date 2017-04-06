@@ -1,12 +1,12 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { NavBarComponent } from './nav-bar.component';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    CommonModule,
     RouterModule,
   ],
 

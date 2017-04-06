@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { LandingComponent } from './landing.component';
 import { LandingRoutingModule } from './landing-routing.module';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    CommonModule,
     LandingRoutingModule,
   ],
 
@@ -15,7 +15,6 @@ import { LandingRoutingModule } from './landing-routing.module';
   ],
 
   exports: [
-    LandingComponent,
   ],
 })
 export class LandingModule {

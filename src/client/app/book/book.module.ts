@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { MyBooksComponent } from './mybooks/my-books.component';
 import { BookListComponent } from './booklist/book-list.component';
@@ -9,7 +9,7 @@ import { SearchBookService } from './search-book.service';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    CommonModule,
     BookRoutingModule,
   ],
 
@@ -20,9 +20,6 @@ import { SearchBookService } from './search-book.service';
   ],
 
   exports: [
-    MyBooksComponent,
-    BookListComponent,
-    BookDetailComponent,
   ],
 
   providers: [
