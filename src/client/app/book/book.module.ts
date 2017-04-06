@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { BookComponent } from './book.component';
 import { MyBooksComponent } from './mybooks/my-books.component';
 import { BookListComponent } from './booklist/book-list.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
@@ -14,6 +15,7 @@ import { SearchBookService } from './search-book.service';
   ],
 
   declarations: [
+    BookComponent,
     MyBooksComponent,
     BookListComponent,
     BookDetailComponent,

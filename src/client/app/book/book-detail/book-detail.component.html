@@ -1,3 +1,5 @@
+<button routerLink="../">Back</button>
+
 <div *ngIf="bookStream | async as book">
   <h2>{{book[0].volumeInfo.title}}</h2>
   <h5>{{book[0].volumeInfo.subtitle}}</h5>
