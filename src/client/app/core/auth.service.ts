@@ -38,6 +38,10 @@ export class AuthService {
     this.cachedData = null;
   }
 
+  isLoggedIn(): boolean {
+    return !!this.cachedData;
+  }
+
   signup(username: string, password: string): Observable<boolean> {
     return this.http.post('/signup', { username, password })
       .map(res => {
@@ -54,6 +58,7 @@ export class AuthService {
       .map(res => {
         const user = res.json().user;
         this.loadUserStream.next(user);
+        this.cachedData = user;
 
         return true;
       })
@@ -78,6 +83,7 @@ export class AuthService {
       .map(res => {
         const user = res.json().user;
         this.loadUserStream.next(user);
+        this.cachedData = user;
 
         return true;
       })

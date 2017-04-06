@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { NameService } from './name.service';
 import { TradeService } from './trade.service';
 import { MyBooksService } from './my-books.service';
+import { AuthGuard } from './auth-guard.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { MyBooksService } from './my-books.service';
   exports: [],
 
   providers: [
+    AuthGuard,
     AuthService,
     NameService,
     TradeService,
