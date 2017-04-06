@@ -6,6 +6,10 @@ import { MyBooksComponent } from './mybooks/my-books.component';
 import { BookListComponent } from './booklist/book-list.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { AuthGuard } from '../core/auth-guard.service';
+import { TradeService } from '../core/trade.service';
+import { AuthService } from '../core/auth.service';
+import { MyBooksService } from '../core/my-books.service';
+import { BookDetailService } from '../book/book-detail/book-detail.service';
 
 const bookRoutes: Routes = [
   {
@@ -18,7 +22,16 @@ const bookRoutes: Routes = [
         path: '',
         component: BookListComponent,
         children: [
-          { path: ':volumeID', component: BookDetailComponent },
+          {
+            path: ':volumeID',
+            component: BookDetailComponent,
+            resolve: {
+              bookDetail: BookDetailService,
+              user: AuthService,
+              myRequests: TradeService,
+              myBooks: MyBooksService,
+            },
+          },
         ],
       },
     ],

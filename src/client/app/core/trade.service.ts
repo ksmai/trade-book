@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Resolve } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -13,7 +14,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 @Injectable()
-export class TradeService {
+export class TradeService implements Resolve<any> {
   private url = '/api/v1/trade';
   private myRequests$: Observable<Array<any>>;
   private theirRequests$: Observable<Array<any>>;
@@ -21,6 +22,10 @@ export class TradeService {
   private theirRequests: Array<any>;
 
   constructor(private http: Http) {
+  }
+
+  resolve() {
+    return this.fetchMyRequests();
   }
 
   clearCache(): void {

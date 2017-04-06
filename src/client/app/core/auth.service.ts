@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Resolve } from '@angular/router';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -16,7 +17,7 @@ import { MyBooksService } from './my-books.service';
 import { TradeService } from './trade.service';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements Resolve<User> {
   private subject = new BehaviorSubject<User>(null);
   private inFlight: Observable<User>;
 
@@ -25,6 +26,10 @@ export class AuthService {
     private myBooksService: MyBooksService,
     private tradeService: TradeService
   ) {
+  }
+
+  resolve() {
+    return this.subject.asObservable().take(1);
   }
 
   clearCache(): void {

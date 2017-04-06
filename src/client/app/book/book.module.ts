@@ -7,6 +7,7 @@ import { BookListComponent } from './booklist/book-list.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookRoutingModule } from './book-routing.module';
 import { SearchBookService } from './search-book.service';
+import { BookDetailService } from './book-detail/book-detail.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { SearchBookService } from './search-book.service';
 
   providers: [
     SearchBookService,
+    BookDetailService,
   ],
 })
 export class BookModule {
