@@ -18,6 +18,7 @@ export class OwnerResolver implements Resolve<any> {
     const bookID = activatedRouteSnapshot.params['bookID'];
 
     return this.http.get(`/api/v1/bookowner/${bookID}`)
+      .map(res => res.json().book)
       .retryWhen((errors: Observable<any>) => {
         return errors
           .mergeMap(error => error.status === 400 || error.status === 401 ?

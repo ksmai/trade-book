@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { InitTradeComponent } from './init-trade/init-trade.component';
 import { TradeComponent } from './trade.component';
@@ -10,6 +11,7 @@ import { OwnerResolver } from './init-trade/owner-resolver.service';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     TradeRoutingModule,
   ],
 

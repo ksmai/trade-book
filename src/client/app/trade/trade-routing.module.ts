@@ -12,7 +12,9 @@ const tradeRoutes: Routes = [
     path: 'init-trade/:bookID',
     component: InitTradeComponent,
     canActivate: [AuthGuard],
-    resolve: [OwnerResolver],
+    resolve: {
+      book: OwnerResolver,
+    },
     outlet: 'init-trade',
   },
 ];

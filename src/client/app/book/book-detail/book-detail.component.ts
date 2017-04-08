@@ -6,8 +6,6 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
-import { TradeService } from '../../core/trade.service';
-
 @Component({
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.scss'],
@@ -21,8 +19,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private tradeService: TradeService
+    private router: Router
   ) {
   }
 

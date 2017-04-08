@@ -1,2 +1,33 @@
 <h2>Start a new trade</h2>
+<div *ngIf="book | async as book">
+  <dl>
+    <dt>Book Requested</dt>
+    <dd>
+      <img [src]="book.info.thumbnail" [alt]="book.info.title">
+      <h3>{{book.info.title}}</h3>
+      <h6>{{book.info.subtitle}}</h6>
+    </dd>
+    <dt>Owner's name</dt>
+    <dd>{{book.user.displayName || book.user.name}}</dd>
+    <dt>Email</dt>
+    <dd>{{book.user.email || 'Not provided.'}}</dd>
+    <dt>Location</dt>
+    <dd>{{book.user.location || 'Not Provided.'}}</dd>
+  </dl>
+
+  <div *ngIf="!success; else finish">
+    <form (ngSubmit)="initTrade(book._id)" #commentForm="ngForm">
+      <textarea [(ngModel)]="comment" name="comment" required></textarea>
+      <button type="submit" [disabled]="!commentForm.form.valid">Submit</button>
+      <button type="reset">Clear</button>
+      <button type="button" (click)="cancel()">Cancel</button>
+    </form>
+    <p *ngIf="error">An error has occurred. Please try again later.</p>
+  </div>
+  <ng-template #finish>
+    Request sent successfully.
+    <button type="button" (click)="view()">View my requests</button>
+    <button type="button" (click)="cancel()">Close</button>
+  </ng-template>
+</div>
 
