@@ -1,0 +1,9 @@
+<input type="text" (keyup)="search(termCtrl.value)" #termCtrl>
+<ul>
+  <li *ngFor="let result of searchResult | async" (click)="onSelect(result)">
+    <img [src]="result.volumeInfo.imageLinks?.smallThumbnail" [alt]="result.volumeInfo.title">
+    <h3>{{result.volumeInfo.title}}</h3>
+    <h5>{{result.volumeInfo.subtitle}}</h5>
+  </li>
+</ul>
+

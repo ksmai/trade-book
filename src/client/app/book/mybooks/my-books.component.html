@@ -14,12 +14,7 @@
 </div>
 
 <ng-template #addBook>
-  <input type="text" (keyup)="search(termCtrl.value)" #termCtrl>
-  <div *ngFor="let result of searchResult | async" (click)="add(result.id)">
-    <img [src]="result.volumeInfo.imageLinks?.smallThumbnail" [alt]="result.volumeInfo.title">
-    <h3>{{result.volumeInfo.title}}</h3>
-    <h5>{{result.volumeInfo.subtitle}}</h5>
-  </div>
+  <book-search (selectBook)="add($event)"></book-search>
 </ng-template>
 
 <hr>

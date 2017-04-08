@@ -5,8 +5,9 @@ import { BookComponent } from './book.component';
 import { MyBooksComponent } from './mybooks/my-books.component';
 import { BookListComponent } from './booklist/book-list.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
+import { BookSearchComponent } from './book-search/book-search.component';
 import { BookRoutingModule } from './book-routing.module';
-import { SearchBookService } from './search-book.service';
+import { SearchBookService } from './book-search/search-book.service';
 import { BookDetailService } from './book-detail/book-detail.service';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { BookDetailService } from './book-detail/book-detail.service';
     MyBooksComponent,
     BookListComponent,
     BookDetailComponent,
+    BookSearchComponent,
   ],
 
   exports: [
