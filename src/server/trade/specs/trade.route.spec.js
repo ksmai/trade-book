@@ -27,6 +27,8 @@ describe('Trade routes', () => {
       next();
     });
     app.use(tradeRouter);
+    /* next is required for defining express error handler */
+    /* eslint-disable-next-line no-unused-vars */
     app.use((err, req, res, next) => res.sendStatus(400));
     request = supertest(app);
   });

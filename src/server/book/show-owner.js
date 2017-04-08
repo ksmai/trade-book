@@ -4,6 +4,7 @@ function showOwner({ bookID }) {
   return Book
     .findById(bookID)
     .populate('user', { hash: 0 })
+    .populate('info')
     .exec()
     .then(book => {
       if (!book) {

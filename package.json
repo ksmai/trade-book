@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development PORT=3000 MONGO_URL=mongodb://localhost/trade-book nodemon index.js",
     "lint:server": "eslint src/server",
+    "lint": "npm run lint:server",
     "random-id": "node src/server/test-util/mongo-id",
     "test:server": "cross-env NODE_ENV=test nyc jasmine JASMINE_CONFIG_PATH=jasmine.json",
     "test": "npm run test:server"

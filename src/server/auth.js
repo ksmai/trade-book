@@ -46,10 +46,10 @@ passport.deserializeUser(deserializeUser);
 
 // "next" is needed for express to identify the function as
 // an error handler
-/* eslint-disable-next-line no-unused-vars: "off" */
+/* eslint-disable-next-line no-unused-vars */
 function authErrorHandler(err, req, res, next) {
   if (err) {
-    return res.status(400).end();
+    res.status(400).end();
   }
 }
 

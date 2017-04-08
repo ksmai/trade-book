@@ -13,7 +13,7 @@ function completeTrade({ requester, tradeID }) {
     $set: {
       isCompleted: true,
       completeDate: new Date(),
-    }
+    },
   };
 
   const options = {
