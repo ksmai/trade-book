@@ -1,6 +1,7 @@
 import express from 'express';
 
 import showOwners from './show-owners';
+import showOwner from './show-owner';
 import showBooksOfUser from './show-books-of-user';
 import addBook from './add-book';
 import removeBook from './remove-book';
@@ -39,12 +40,20 @@ function removeBookHandler(req, res, next) {
     .catch(next);
 }
 
+function showOwnerHandler(req, res, next) {
+  const bookID = req.params.bookID;
+
+  return showOwner({ bookID })
+    .then(book => res.json({ book }))
+    .catch(next);
+}
 
 const bookRouter = new express.Router();
 bookRouter.get('/book/:volumeID', getBookHandler);
 bookRouter.get('/mybook', getMyBookHandler);
 bookRouter.post('/mybook', addBookHandler);
 bookRouter.delete('/mybook', removeBookHandler);
+bookRouter.get('/bookowner/:bookID', showOwnerHandler);
 
 export default bookRouter;
 

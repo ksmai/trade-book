@@ -7,6 +7,7 @@ import * as addBook from '../add-book';
 import * as removeBook from '../remove-book';
 import * as showBooksOfUser from '../show-books-of-user';
 import * as showOwners from '../show-owners';
+import * as showOwner from '../show-owner';
 
 describe('Book routes', () => {
   let request;
@@ -75,6 +76,20 @@ describe('Book routes', () => {
           volumeID,
           books: [],
         });
+      })
+      .then(done, done.fail);
+  });
+
+  it('show owner of a particular book', done => {
+    spyOn(showOwner, 'default').and.returnValue(Promise.resolve(book));
+
+    return request
+      .get(`/bookowner/${bookID}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .then(res => {
+        expect(showOwner.default).toHaveBeenCalledWith({ bookID });
+        expect(res.body).toEqual({ book });
       })
       .then(done, done.fail);
   });
