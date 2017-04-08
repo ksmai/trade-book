@@ -83,13 +83,13 @@ export class AuthService implements Resolve<User> {
       .catch(() => Observable.of(false));
   }
 
-  updateInfo(info: { [key: string]: string }): Observable<boolean> {
+  updateInfo(info: { [key: string]: string }): Observable<User> {
     return this.http.put('/api/v1/user', info)
       .map(res => {
         const user = res.json().user;
         this.subject.next(user);
 
-        return true;
+        return user;
       })
       .take(1)
       .catch(() => Observable.of(false));

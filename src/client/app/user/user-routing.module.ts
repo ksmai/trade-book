@@ -5,6 +5,7 @@ import { UserComponent } from './user.component';
 import { UserInfoComponent } from './info/user-info.component';
 import { PasswordComponent } from './password/password.component';
 import { AuthGuard } from '../core/auth-guard.service';
+import { UnsaveGuard } from '../core/unsave-guard.service';
 
 const userRoutes: Routes = [
   {
@@ -17,7 +18,11 @@ const userRoutes: Routes = [
         canActivateChild: [AuthGuard],
         children: [
           { path: 'password', component: PasswordComponent },
-          { path: '', component: UserInfoComponent },
+          {
+            path: '',
+            component: UserInfoComponent,
+            canDeactivate: [UnsaveGuard],
+          },
         ],
       },
     ],

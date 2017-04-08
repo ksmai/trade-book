@@ -6,6 +6,7 @@ import { NameService } from './name.service';
 import { TradeService } from './trade.service';
 import { MyBooksService } from './my-books.service';
 import { AuthGuard } from './auth-guard.service';
+import { UnsaveGuard } from './unsave-guard.service';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { AuthGuard } from './auth-guard.service';
     NameService,
     TradeService,
     MyBooksService,
+    UnsaveGuard,
   ],
 })
 export class CoreModule {

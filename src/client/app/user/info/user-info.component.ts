@@ -14,15 +14,31 @@ export class UserInfoComponent implements OnInit {
   error = false;
   success = false;
 
+  private displayNameClean: string;
+  private emailClean: string;
+  private locationClean: string;
+
   constructor(private authService: AuthService) {
+  }
+
+  canDeactivate() {
+    const clean = !this.ready || (
+      this.email.trim() === this.emailClean.trim() &&
+      this.location.trim() === this.locationClean.trim() &&
+      this.displayName.trim() === this.displayNameClean.trim()
+    );
+
+    if (clean) return true;
+
+    return new Promise(resolve => resolve(window.confirm('sure?')));
   }
 
   ngOnInit(): void {
     this.authService.loadUser(true)
       .subscribe(user => {
-        this.email = user.email || '';
-        this.location = user.location || '';
-        this.displayName = user.displayName || '';
+        this.emailClean = this.email = user.email || '';
+        this.locationClean = this.location = user.location || '';
+        this.displayNameClean = this.displayName = user.displayName || '';
         this.ready = true;
       });
   }
@@ -33,9 +49,12 @@ export class UserInfoComponent implements OnInit {
     const { displayName, email, location } = this;
     const info = { displayName, email, location };
     this.authService.updateInfo(info)
-      .subscribe(success => {
-        if (success) {
+      .subscribe(user => {
+        if (user) {
           this.success = true;
+          this.emailClean = this.email = user.email || '';
+          this.locationClean = this.location = user.location || '';
+          this.displayNameClean = this.displayName = user.displayName || '';
         } else {
           this.error = true;
         }
