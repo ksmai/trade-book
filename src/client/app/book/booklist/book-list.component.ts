@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BookListService } from './book-list.service';
 import { Book } from './book';
@@ -11,7 +12,10 @@ import { Book } from './book';
 export class BookListComponent implements OnInit {
   books: Book[] = [];
 
-  constructor(private bookListService: BookListService) {
+  constructor(
+    private bookListService: BookListService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -26,6 +30,11 @@ export class BookListComponent implements OnInit {
         const newBooks = books.filter(book => !~ids.indexOf(book._id));
         this.books.push(...newBooks);
       });
+  }
+
+  gotoBook(book: any): void {
+    const volumeID = book.volumeID || book.id;
+    this.router.navigate(['/book', volumeID]);
   }
 }
 

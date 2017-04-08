@@ -2,7 +2,9 @@
 
 <h2>Book List</h2>
 
-<div *ngFor="let book of books" [routerLink]="['/book', book.volumeID]">
+<book-search (selectBook)="gotoBook($event)"></book-search>
+
+<div *ngFor="let book of books" (click)="gotoBook(book)">
   <img [src]="book.thumbnail" [alt]="book.title">
   <h3>{{book.title}}</h3>
   <h5>{{book.subtitle}}</h5>
