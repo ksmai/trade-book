@@ -1,7 +1,7 @@
 <h2>My Trades</h2>
 
 <h3>My Requests</h3>
-<div *ngFor="let req of myRequests | async">
+<div *ngFor="let req of myRequests | async" [class.highlight]="highlight === req._id">
   <h4>Trade Details</h4>
   <dl>
     <dt>Comment</dt>

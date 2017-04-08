@@ -5,6 +5,7 @@ import { TradeComponent } from './trade.component';
 import { InitTradeComponent } from './init-trade/init-trade.component';
 import { OwnerResolver } from './init-trade/owner-resolver.service';
 import { AuthGuard } from '../core/auth-guard.service';
+import { UnsaveGuard } from '../core/unsave-guard.service';
 
 const tradeRoutes: Routes = [
   { path: 'trade', component: TradeComponent, canActivate: [AuthGuard] },
@@ -12,6 +13,7 @@ const tradeRoutes: Routes = [
     path: 'init-trade/:bookID',
     component: InitTradeComponent,
     canActivate: [AuthGuard],
+    canDeactivate: [UnsaveGuard],
     resolve: {
       book: OwnerResolver,
     },

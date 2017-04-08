@@ -10,6 +10,7 @@ import { TradeService } from '../../core/trade.service';
 })
 export class InitTradeComponent implements OnInit {
   book: Observable<any>;
+  tradeID: string;
   comment = '';
   success = false;
   error = false;
@@ -19,6 +20,12 @@ export class InitTradeComponent implements OnInit {
     private router: Router,
     private tradeService: TradeService
   ) {
+  }
+
+  canDeactivate() {
+    if (this.success || !this.comment) return true;
+
+    return window.confirm('Sure?');
   }
 
   ngOnInit(): void {
@@ -32,9 +39,10 @@ export class InitTradeComponent implements OnInit {
     this.tradeService
       .createRequest(bookID, this.comment)
       .take(1)
-      .subscribe((success: boolean) => {
-        if (success) {
+      .subscribe(trade => {
+        if (trade) {
           this.success = true;
+          this.tradeID = trade._id;
         } else {
           this.error = true;
         }
@@ -42,8 +50,8 @@ export class InitTradeComponent implements OnInit {
   }
 
   view(): void {
-    this.router.navigate(['/trade']);
-    this.cancel();
+    this.router.navigate(['/trade', { id: this.tradeID }])
+      .then(() => this.cancel());
   }
 
   cancel(): void {

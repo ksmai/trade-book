@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
@@ -12,13 +12,21 @@ import { TradeService } from '../core/trade.service';
 export class TradeComponent implements OnInit {
   myRequests: Observable<Array<any>>;
   theirRequests: Observable<Array<any>>;
+  highlight: string;
 
-  constructor(private tradeService: TradeService, private router: Router) {
+  constructor(
+    private tradeService: TradeService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
   }
 
   ngOnInit(): void {
     this.loadMyRequests(true);
     this.loadTheirRequests(true);
+
+    this.activatedRoute.params
+      .subscribe((params: Params) => this.highlight = params['id']);
   }
 
   loadMyRequests(refresh = false): void {

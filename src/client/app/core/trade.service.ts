@@ -87,16 +87,16 @@ export class TradeService implements Resolve<any> {
       .catch(() => Observable.of(false));
   }
 
-  createRequest(bookID: string, comment: string): Observable<boolean> {
+  createRequest(bookID: string, comment: string): Observable<any> {
     if (!comment.trim()) {
       return Observable.of(false);
     }
 
     return this.http
       .post(this.url, { bookID, comment: comment.trim() })
-      .map(() => true)
+      .map(res => res.json().trade)
       .retryWhen(this.retry)
-      .catch(() => Observable.of(false));
+      .catch(() => Observable.of(null));
   }
 
   private retry(errors: Observable<any>): Observable<any> {
