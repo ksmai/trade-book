@@ -63,10 +63,10 @@
         <td>{{copy.user.email || '-'}}</td>
         <td>{{copy.user.location || '-'}}</td>
         <td>{{copy.user.lastLogin | date}}</td>
-        <td *ngIf="me === copy.user._id">Cannot trade with yourself.</td>
-        <td *ngIf="me !== copy.user._id">
-          <textarea #comment></textarea>
-          <button type="button" (click)="initTrade(copy._id, comment.value)">Request a trade</button>
+        <td>
+          <button type="button" (click)="initTrade(copy._id)" [disabled]="me === copy.user._id">
+            Request a trade
+          </button>
         </td>
       </tr>
     </table>

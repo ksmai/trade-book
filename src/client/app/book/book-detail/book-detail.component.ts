@@ -44,13 +44,10 @@ export class BookDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  initTrade(id: string, comment: string): void {
-    this.tradeService.createRequest(id, comment)
-      .subscribe(success => {
-        if (success) {
-          this.router.navigate(['/trade']);
-        }
-      });
+  initTrade(bookID: string): void {
+    this.router.navigate([
+      { outlets: { 'init-trade': ['init-trade', bookID] } },
+    ]);
   }
 }
 
