@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
@@ -39,7 +40,7 @@ export class AuthService implements Resolve<User> {
   isLoggedIn(): Observable<boolean> {
     if (this.inFlight) {
       return this.inFlight
-        .map(() => true)
+        .map((user: User) => user ? true : false)
         .catch(() => Observable.of(false));
     }
 
@@ -97,7 +98,7 @@ export class AuthService implements Resolve<User> {
 
   loadUser(refresh = false): Observable<User> {
     if (refresh) {
-      this.inFlight = this.getData().take(1);
+      this.inFlight = this.getData().take(1).share();
       this.inFlight.subscribe(user => {
         this.subject.next(user);
         this.inFlight = null;

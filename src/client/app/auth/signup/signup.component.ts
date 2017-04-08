@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/take';
 
 import { AuthService } from '../../core/auth.service';
@@ -8,13 +8,25 @@ import { AuthService } from '../../core/auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   username: string = '';
   password0: string = '';
   password1: string = '';
   error: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  private redirect = '/';
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+  }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(
+      (params: Params) => this.redirect = params['redirect'] || '/'
+    );
   }
 
   signup() {
@@ -22,7 +34,7 @@ export class SignupComponent {
       .take(1)
       .subscribe(success => {
         if (success) {
-          this.router.navigate(['/']);
+          this.router.navigate([this.redirect]);
         } else {
           this.error = true;
         }
