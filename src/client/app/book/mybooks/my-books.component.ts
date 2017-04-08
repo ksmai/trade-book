@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/of';
@@ -11,13 +12,21 @@ import { MyBooksService } from '../../core/my-books.service';
 })
 export class MyBooksComponent implements OnInit {
   books: Observable<any>;
+  highlight: string;
   error = false;
 
-  constructor(private myBooksService: MyBooksService) {
+  constructor(
+    private myBooksService: MyBooksService,
+    private activatedRoute: ActivatedRoute
+  ) {
   }
 
   ngOnInit(): void {
     this.load(true);
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.highlight = params['id'];
+    });
   }
 
   load(refresh = false): void {

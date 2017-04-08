@@ -52,6 +52,7 @@ export class MyBooksService implements Resolve<any> {
   add(volumeID: string): Observable<any> {
     return this.http
       .post(this.url, { volumeID })
+      .map(res => res.json().book)
       .retryWhen(this.retry);
   }
 
