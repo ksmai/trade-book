@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { AuthService } from './auth.service';
@@ -25,5 +25,10 @@ import { UnsaveGuard } from './unsave-guard.service';
   ],
 })
 export class CoreModule {
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+    if (parentModule) {
+      throw new Error('The core module cannot be imported twice.');
+    }
+  }
 }
 
