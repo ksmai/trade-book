@@ -30,7 +30,9 @@ export class NameService {
   }
 
   private check(name: string): Observable<boolean> {
-    return this.http.get(`/checkname/${name}`)
+    const encName = encodeURIComponent(name);
+
+    return this.http.get(`/checkname/${encName}`)
       .map(() => true)
       .catch(() => Observable.of(false));
   }

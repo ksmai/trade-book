@@ -35,6 +35,7 @@ describe('Signup controller', () => {
       .then(() => User.findOne({ name }).exec())
       .then(user => {
         expect(user.name).toEqual(name);
+        expect(user.displayName).toEqual(name);
         expect(user.lastLogin).not.toBeLessThan(now);
         expect(user.lastLogin).not.toBeGreaterThan(new Date());
       })

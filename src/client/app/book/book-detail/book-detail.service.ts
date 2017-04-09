@@ -22,13 +22,14 @@ export class BookDetailService implements Resolve<any> {
   }
 
   fetch(volumeID: string): Observable<[any, Array<any>]> {
+    const encID = encodeURIComponent(volumeID);
     const googleBook = this.http
-      .get(`https://www.googleapis.com/books/v1/volumes/${volumeID}`)
+      .get(`https://www.googleapis.com/books/v1/volumes/${encID}`)
       .map(res => res.json())
       .retry(3);
 
     const owners = this.http
-      .get(`/api/v1/book/${volumeID}`)
+      .get(`/api/v1/book/${encID}`)
       .map(res => res.json().books)
       .retry(3);
 

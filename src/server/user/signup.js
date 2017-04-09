@@ -10,7 +10,7 @@ function signup({ name, password }) {
 
   return bcrypt
     .hash(password, 10)
-    .then(hash => User.create({ name, hash }));
+    .then(hash => User.create({ name, hash, displayName: name }));
 }
 
 export default signup;

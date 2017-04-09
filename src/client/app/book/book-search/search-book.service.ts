@@ -16,8 +16,10 @@ export class SearchBookService {
       return Observable.of([]);
     }
 
+    const encTerm = encodeURIComponent(term);
+
     return this.http
-      .get(`https://www.googleapis.com/books/v1/volumes?q=${term}`)
+      .get(`https://www.googleapis.com/books/v1/volumes?q=${encTerm}`)
       .map(res => res.json().items as Array<any>)
       .retry(3)
       .catch(() => Observable.of([]));
