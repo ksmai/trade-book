@@ -7,6 +7,9 @@ import { TradeService } from './trade.service';
 import { MyBooksService } from './my-books.service';
 import { AuthGuard } from './auth-guard.service';
 import { UnsaveGuard } from './unsave-guard.service';
+import {
+  defaultRequestOptionsProvider,
+} from './default-request-options.service';
 
 @NgModule({
   imports: [
@@ -22,6 +25,7 @@ import { UnsaveGuard } from './unsave-guard.service';
     TradeService,
     MyBooksService,
     UnsaveGuard,
+    defaultRequestOptionsProvider,
   ],
 })
 export class CoreModule {
