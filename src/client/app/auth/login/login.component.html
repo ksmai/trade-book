@@ -1,8 +1,16 @@
 <h2>Login</h2>
 <form (ngSubmit)="login(nameCtrl.value, pwCtrl.value)" #loginForm="ngForm">
-  <input type="text" placeholder="Name" name="username" [(ngModel)]="username" required #nameCtrl="ngModel">
-  <input type="password" placeholder="Password" name="password" [(ngModel)]="password" required minlength="8" #pwCtrl="ngModel">
-  <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
+  <md-input-container>
+    <input type="text" placeholder="Name" name="username" [(ngModel)]="username" required #nameCtrl="ngModel" mdInput>
+    <md-error>Name is required</md-error>
+  </md-input-container>
+  <md-input-container>
+    <input type="password" mdInput name="password" [(ngModel)]="password" required minlength="8" #pwCtrl="ngModel">
+    <md-placeholder>Password</md-placeholder>
+    <md-error>Password has at least 8 characters</md-error>
+  </md-input-container>
+
+  <button md-raised-button type="submit" [disabled]="!loginForm.form.valid">Login</button>
 </form>
 <p *ngIf="mismatch">Username/Password mismatch.</p>
 
