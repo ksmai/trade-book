@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { TradeService } from '../../core/trade.service';
@@ -13,9 +14,9 @@ export class InitTradeComponent implements OnInit {
   tradeID: string;
   comment = '';
   success = false;
-  error = false;
 
   constructor(
+    private snackbar: MdSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private tradeService: TradeService
@@ -35,7 +36,6 @@ export class InitTradeComponent implements OnInit {
   }
 
   initTrade(bookID: string): void {
-    this.error = false;
     if (!this.comment) return;
 
     this.tradeService
@@ -45,8 +45,11 @@ export class InitTradeComponent implements OnInit {
         if (trade) {
           this.success = true;
           this.tradeID = trade._id;
+          this.snackbar.open('Trade requested', null, { duration: 1000 });
         } else {
-          this.error = true;
+          this.snackbar.open('Failed to start the trade', null, {
+            duration: 1000,
+          });
         }
       });
   }
