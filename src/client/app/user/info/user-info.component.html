@@ -1,13 +1,66 @@
-<h2>Update Personal Info</h2>
 <h5>Optional information to help you trade books more easily!</h5>
 
 <form (ngSubmit)="updateInfo()" #infoForm="ngForm" *ngIf="ready">
-  <input type="email" placeholder="Email" [(ngModel)]="email" maxlength="256" name="email" pattern="[^@ ]+@[^@ ]+">
-  <input type="text" placeholder="Display Name" [(ngModel)]="displayName" maxlength="1024" name="displayName">
-  <textarea placeholder="Location" [(ngModel)]="location" maxlength="1024" name="location"></textarea>
-  <button type="submit" [disabled]="!infoForm.form.valid">Update</button>
-</form>
+  <md-input-container>
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+      maxlength="256"
+      name="email"
+      pattern="[^@ ]+@[^@ ]+"
+      mdInput
+      #emailCtrl="ngModel"
+    >
+    <md-error *ngIf="emailCtrl.errors?.pattern">
+      Invalid email address
+    </md-error>
+    <md-hint *ngIf="emailCtrl.value?.length > 230" align="end">
+      {{emailCtrl.value.length}} / 256
+    </md-hint>
+  </md-input-container>
 
-<div *ngIf="success">Information updated successfully.</div>
-<div *ngIf="error">An error has occurred. Please try again later.</div>
+  <md-input-container>
+    <input
+      type="text"
+      placeholder="Display Name"
+      [(ngModel)]="displayName"
+      maxlength="1024"
+      name="displayName"
+      mdInput
+      #nameCtrl="ngModel"
+    >
+    <md-hint *ngIf="nameCtrl.value?.length > 1000" align="end">
+      {{nameCtrl.value.length}} / 1024
+    </md-hint>
+  </md-input-container>
+
+  <md-input-container>
+    <textarea
+      placeholder="Location"
+      [(ngModel)]="location"
+      maxlength="1024"
+      name="location"
+      mdInput
+      mdTextareaAutosize
+      minRows="3"
+      #locationCtrl="ngModel"
+    ></textarea>
+    <md-hint *ngIf="locationCtrl.value?.length > 1000" align="end">
+      {{locationCtrl.value.length}} / 1024
+    </md-hint>
+  </md-input-container>
+
+  <button
+    md-button
+    type="submit"
+    [disabled]="!infoForm.form.valid"
+  >Update</button>
+
+  <button
+    md-button
+    type="button"
+    (click)="reset()"
+  >Cancel</button>
+</form>
 

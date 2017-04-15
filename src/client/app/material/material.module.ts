@@ -7,10 +7,12 @@ import {
   MdListModule,
   MdSidenavModule,
   MdIconModule,
+  MdSnackBarModule,
 } from '@angular/material';
 
 @NgModule({
   exports: [
+    MdSnackBarModule,
     MdIconModule,
     MdInputModule,
     MdButtonModule,

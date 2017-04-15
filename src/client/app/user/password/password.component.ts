@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 
 import { PasswordService } from './password.service';
 
@@ -12,9 +14,12 @@ export class PasswordComponent {
   newPW: string = '';
   confirmPW: string = '';
   error: boolean = false;
-  success: boolean = false;
 
-  constructor(private passwordService: PasswordService) {
+  constructor(
+    private passwordService: PasswordService,
+    private router: Router,
+    private snackbar: MdSnackBar
+  ) {
   }
 
   changePassword(): void {
@@ -22,8 +27,10 @@ export class PasswordComponent {
     this.passwordService.update(this.oldPW, this.newPW)
       .subscribe(success => {
         if (success) {
-          this.success = true;
+          this.snackbar.open('Password changed', null, { duration: 1000 });
+          this.router.navigate(['/']);
         } else {
+          this.snackbar.open('Invalid password', null, { duration: 1000 });
           this.error = true;
         }
       });
