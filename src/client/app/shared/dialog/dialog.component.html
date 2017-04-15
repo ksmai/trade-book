@@ -1,0 +1,7 @@
+<h1 md-dialog-title>{{title}}</h1>
+<div md-dialog-content>{{content}}</div>
+<div md-dialog-actions>
+  <button md-button (click)="dialogRef.close(false)">{{no}}</button>
+  <button md-button (click)="dialogRef.close(true)">{{yes}}</button>
+</div>
+

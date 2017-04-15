@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MdSnackBar, MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { TradeService } from '../../core/trade.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class InitTradeComponent implements OnInit {
   success = false;
 
   constructor(
+    private dialog: MdDialog,
     private snackbar: MdSnackBar,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -26,7 +28,12 @@ export class InitTradeComponent implements OnInit {
   canDeactivate() {
     if (this.success || !this.comment) return true;
 
-    return window.confirm('Sure?');
+    const title = 'Discard request?';
+    const yes = 'Discard';
+    const no = 'Cancel';
+    const data = { title, yes, no };
+
+    return this.dialog.open(DialogComponent, { data }).afterClosed();
   }
 
   ngOnInit(): void {

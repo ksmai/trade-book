@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MdSnackBar } from '@angular/material';
+import { MdSnackBar, MdDialog } from '@angular/material';
 
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { AuthService } from '../../core/auth.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class UserInfoComponent implements OnInit {
   private locationClean: string;
 
   constructor(
+    private dialog: MdDialog,
     private authService: AuthService,
     private snackbar: MdSnackBar
   ) {
@@ -32,7 +34,13 @@ export class UserInfoComponent implements OnInit {
 
     if (clean) return true;
 
-    return new Promise(resolve => resolve(window.confirm('sure?')));
+    const data = {
+      title: 'Discard changes?',
+      yes: 'Discard',
+      no: 'Cancel',
+    };
+
+    return this.dialog.open(DialogComponent, { data }).afterClosed();
   }
 
   ngOnInit(): void {
