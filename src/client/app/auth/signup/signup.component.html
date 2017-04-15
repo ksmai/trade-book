@@ -1,23 +1,67 @@
 <h2>Signup</h2>
 <form (ngSubmit)="signup()" #signupForm="ngForm">
   <md-input-container>
-    <input mdInput type="text" name="username" [(ngModel)]="username" placeholder="Username" #nameCtrl="ngModel" required maxlength="255" nameAvailable pattern="^[A-Za-z0-9-_.@]+$">
+    <input
+      mdInput
+      type="text"
+      name="username"
+      [(ngModel)]="username"
+      placeholder="Username"
+      #nameCtrl="ngModel"
+      required
+      maxlength="255"
+      nameAvailable
+      pattern="^[A-Za-z0-9-_.@]+$"
+    >
     <md-error>Username is required</md-error>
   </md-input-container>
-  <md-input-container>
-    <input mdInput type="password" name="password0" [(ngModel)]="password0" placeholder="Password" #pwCtrl0="ngModel" required minlength="8" [sameAs]="pwCtrl1" nameOfOther="password1">
-    <md-error *ngIf="pwCtrl0.errors?.minlength">At least 8 characters</md-error>
-    <md-error *ngIf="!pwCtrl0.errors?.minlength && pwCtrl0.errors?.validateSame && !pwCtrl0.errors?.required">Passwords do not match</md-error>
-  </md-input-container>
-  <md-input-container>
-    <input mdInput type="password" name="password1" [(ngModel)]="password1" placeholder="Confirm password" #pwCtrl1="ngModel" required minlength="8" [sameAs]="pwCtrl0" nameOfOther="password0">
-    <md-error *ngIf="pwCtrl1.errors?.minlength">At least 8 characters</md-error>
-    <md-error *ngIf="!pwCtrl1.errors?.minlength && pwCtrl1.errors?.validateSame && !pwCtrl1.errors?.required">Passwords do not match</md-error>
-  </md-input-container>
-  <button md-raised-button type="submit" [disabled]="!signupForm.form.valid">Signup</button>
-</form>
 
-{{nameCtrl.errors|json}}
-{{pwCtrl0.errors|json}}
-{{pwCtrl1.errors|json}}
+  <md-input-container>
+    <input
+      mdInput
+      type="password"
+      name="password0"
+      [(ngModel)]="password0"
+      placeholder="Password"
+      #pwCtrl0="ngModel"
+      required
+      minlength="8"
+      [sameAs]="pwCtrl1"
+      nameOfOther="password1"
+    >
+    <md-error *ngIf="pwCtrl0.errors?.minlength || pwCtrl0.errors?.required;
+      else pwDiff0">
+      At least 8 characters
+    </md-error>
+    <ng-template #pwDiff0>
+      <md-error>Passwords do not match</md-error>
+    </ng-template>
+  </md-input-container>
+
+  <md-input-container>
+    <input
+      mdInput
+      type="password"
+      name="password1"
+      [(ngModel)]="password1"
+      placeholder="Confirm password"
+      #pwCtrl1="ngModel"
+      required
+      minlength="8"
+      [sameAs]="pwCtrl0"
+      nameOfOther="password0"
+    >
+    <md-error *ngIf="pwCtrl1.errors?.minlength || pwCtrl1.errors?.required;
+      else pwDiff1">At least 8 characters</md-error>
+    <ng-template #pwDiff1>
+      <md-error>Passwords do not match</md-error>
+    </ng-template>
+  </md-input-container>
+
+  <button
+    md-raised-button
+    type="submit"
+    [disabled]="!signupForm.form.valid"
+  >Signup</button>
+</form>
 

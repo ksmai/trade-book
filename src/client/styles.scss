@@ -1,5 +1,7 @@
 @import "../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 
-button {
+[md-button],
+[md-raised-button],
+[md-tab-link] {
   text-transform: uppercase;
 }
