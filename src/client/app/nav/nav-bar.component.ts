@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../core/auth.service';
@@ -13,7 +14,10 @@ import { User } from '../core/user';
 export class NavBarComponent implements OnInit {
   userStream: Observable<User>;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private snackbar: MdSnackBar,
+    private authService: AuthService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -22,7 +26,10 @@ export class NavBarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout()
-      .subscribe(() => this.router.navigate(['/']));
+      .subscribe(() => {
+        this.snackbar.open('Bye!', null, { duration: 1000 });
+        this.router.navigate(['/']);
+      });
   }
 }
 

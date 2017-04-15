@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
@@ -15,6 +16,7 @@ export class TradeComponent implements OnInit {
   highlight: string;
 
   constructor(
+    private snackbar: MdSnackBar,
     private tradeService: TradeService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -43,6 +45,7 @@ export class TradeComponent implements OnInit {
     this.tradeService.approveRequest(id, true)
       .subscribe(success => {
         if (success) {
+          this.snackbar.open('Trade accepted', null, { duration: 1000 });
           this.loadTheirRequests(true);
         }
       });
@@ -52,6 +55,7 @@ export class TradeComponent implements OnInit {
     this.tradeService.approveRequest(id, false)
       .subscribe(success => {
         if (success) {
+          this.snackbar.open('Trade rejected', null, { duration: 1000 });
           this.loadTheirRequests(true);
         }
       });
@@ -61,6 +65,7 @@ export class TradeComponent implements OnInit {
     this.tradeService.withdrawRequest(id)
       .subscribe(success => {
         if (success) {
+          this.snackbar.open('Trade withdrawn', null, { duration: 1000 });
           this.loadMyRequests(true);
         }
       });
@@ -71,12 +76,14 @@ export class TradeComponent implements OnInit {
       .take(1)
       .subscribe(success => {
         if (success) {
+          this.snackbar.open('Trade completed', null, { duration: 1000 });
           this.loadMyRequests(true);
         }
       });
   }
 
   private errorHandler(err: any): Observable<Array<any>> {
+    this.snackbar.open('Loading failed', null, { duration: 1000 });
     this.router.navigate(['/']);
     
     return Observable.of([]);

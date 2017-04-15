@@ -66,7 +66,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  initTrade(bookID: string, comment: string): void {
+  initTrade(bookID: string, comment: string = ''): void {
     this.router.navigate([
       { outlets: { 'init-trade': ['init-trade', bookID, { comment }] } },
     ]);

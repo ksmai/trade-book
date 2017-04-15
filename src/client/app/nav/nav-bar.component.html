@@ -11,11 +11,17 @@
       (click)="sidenav.close()"
     >Book Trading App</a>
 
-    <a
-      *ngIf="userStream | async as user; else loginButton"
-      md-button
-      routerLink="/setting"
-    >Welcome, {{user.displayName || user.name}}!</a>
+    <ng-container *ngIf="userStream | async as user; else loginButton">
+      <a
+        md-button
+        routerLink="/setting"
+      >Welcome, {{user.displayName || user.name}}!</a>
+      <button
+        md-icon-button
+        routerLink="/"
+        (click)="logout()"
+      ><md-icon>exit_to_app</md-icon></button>
+    </ng-container>
 
     <ng-template #loginButton>
       <a
@@ -63,6 +69,11 @@
             routerLink="/login"
             (click)="sidenav.close()"
           ><md-icon>account_box</md-icon>Login</a>
+          <a
+            md-list-item
+            routerLink="/login/new"
+            (click)="sidenav.close()"
+          ><md-icon>supervisor_account</md-icon>Signup</a>
         </ng-template>
       </md-nav-list>
     </md-sidenav>

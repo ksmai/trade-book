@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { MaterialModule } from '@angular/material';
 import { InitTradeComponent } from './init-trade/init-trade.component';
 import { TradeComponent } from './trade.component';
 import { TradeFilterPipe } from './trade-filter.pipe';
@@ -12,6 +13,7 @@ import { OwnerResolver } from './init-trade/owner-resolver.service';
   imports: [
     CommonModule,
     FormsModule,
+    MaterialModule,
     TradeRoutingModule,
   ],
 
