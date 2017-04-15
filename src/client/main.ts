@@ -8,7 +8,7 @@ import 'zone.js/dist/long-stack-trace-zone';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
-import './styles.scss';
+import './styles/styles.scss';
 
 platformBrowserDynamic().bootstrapModule(AppModule);
 

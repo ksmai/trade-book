@@ -1,16 +1,73 @@
-<nav>
-  <a routerLink="/">Some Logo (TODO)</a>
-  <div *ngIf="userStream | async as user; else guest">
-    Welcome, {{user.displayName || user.name}}!
-    <ul>
-      <li><a routerLink="/trade">Trades</a></li>
-      <li><a routerLink="/book">Books</a></li>
-      <li><a routerLink="/setting">Setting</a></li>
-      <li><a routerLink="/" (click)="logout()">Logout</a></li>
-    </ul>
-  </div>
-  <ng-template #guest>
-    <button routerLink="/login">Login</button>
-  </ng-template>
-</nav>
+<div class="container">
+  <md-toolbar color="primary">
+    <button (click)="sidenav.toggle()" md-button>
+      <md-icon>menu</md-icon>
+    </button>
+
+    <a
+      md-button
+      class="logo"
+      routerLink="/"
+      (click)="sidenav.close()"
+    >Book Trading App</a>
+
+    <a
+      *ngIf="userStream | async as user; else loginButton"
+      md-button
+      routerLink="/setting"
+    >Welcome, {{user.displayName || user.name}}!</a>
+
+    <ng-template #loginButton>
+      <a
+        md-raised-button
+        routerLink="/login"
+        color="accent"
+        (click)="sidenav.close()"
+      >Login</a>
+    </ng-template>
+  </md-toolbar>
+
+  <md-sidenav-container class="content">
+    <md-sidenav #sidenav>
+      <md-nav-list>
+        <a
+          md-list-item
+          routerLink="/"
+          (click)="sidenav.close()"
+        ><md-icon>home</md-icon>Home</a>
+        <ng-container *ngIf="userStream | async; else guestNav">
+          <a
+            md-list-item
+            routerLink="/trade"
+            (click)="sidenav.close()"
+          ><md-icon>swap_horiz</md-icon>Trades</a>
+          <a
+            md-list-item
+            routerLink="/book"
+            (click)="sidenav.close()"
+          ><md-icon>book</md-icon>Books</a>
+          <a
+            md-list-item
+            routerLink="/setting"
+            (click)="sidenav.close()"
+          ><md-icon>settings</md-icon>Settings</a>
+          <a
+            md-list-item
+            routerLink="/"
+            (click)="sidenav.close() && logout()"
+          ><md-icon>exit_to_app</md-icon>Logout</a>
+        </ng-container>
+        <ng-template #guestNav>
+          <a
+            md-list-item
+            routerLink="/login"
+            (click)="sidenav.close()"
+          ><md-icon>account_box</md-icon>Login</a>
+        </ng-template>
+      </md-nav-list>
+    </md-sidenav>
+
+    <ng-content></ng-content>
+  </md-sidenav-container>
+</div>
 
