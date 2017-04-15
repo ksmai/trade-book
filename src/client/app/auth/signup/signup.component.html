@@ -12,7 +12,18 @@
       nameAvailable
       pattern="^[A-Za-z0-9-_.@]+$"
     >
-    <md-error>Username is required</md-error>
+    <md-error *ngIf="nameCtrl.errors?.required">
+      Username is required
+    </md-error>
+    <md-error *ngIf="nameCtrl.errors?.nameAvailable">
+      "{{nameCtrl.value}}" has been taken
+    </md-error>
+    <md-error *ngIf="nameCtrl.errors?.pattern">
+      Only a-z 0-9 - _ . @
+    </md-error>
+    <md-hint *ngIf="nameCtrl.value?.length > 230" align="end">
+      {{nameCtrl.value.length}} / 255
+    </md-hint>
   </md-input-container>
 
   <md-input-container>
