@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/observable/of';
@@ -13,9 +14,9 @@ import { MyBooksService } from '../../core/my-books.service';
 export class MyBooksComponent implements OnInit {
   books: Observable<any>;
   highlight: string;
-  error = false;
 
   constructor(
+    private snackbar: MdSnackBar,
     private myBooksService: MyBooksService,
     private activatedRoute: ActivatedRoute
   ) {
@@ -33,7 +34,9 @@ export class MyBooksComponent implements OnInit {
     this.books = this.myBooksService
       .fetch(refresh)
       .catch(() => {
-        this.error = true;
+        this.snackbar.open('Loading failed', null, {
+          duration: 1000,
+        });
 
         return Observable.of([]);
       });
@@ -43,14 +46,24 @@ export class MyBooksComponent implements OnInit {
     this.myBooksService
       .remove(id)
       .take(1)
-      .subscribe(() => this.load(true));
+      .subscribe(() => {
+        this.snackbar.open('Book removed', null, {
+          duration: 1000,
+        });
+        this.load(true);
+      });
   }
 
   add(book: any): void {
     this.myBooksService
       .add(book.id)
       .take(1)
-      .subscribe(() => this.load(true));
+      .subscribe(() => {
+        this.snackbar.open('Book added', null, {
+          duration: 1000,
+        });
+        this.load(true);
+      });
   }
 }
 
