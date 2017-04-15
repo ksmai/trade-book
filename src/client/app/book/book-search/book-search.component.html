@@ -1,9 +1,28 @@
-<input type="text" (keyup)="search(termCtrl.value)" #termCtrl>
-<ul>
-  <li *ngFor="let result of searchResult | async" (click)="onSelect(result)">
-    <img [src]="result.volumeInfo.imageLinks?.smallThumbnail" [alt]="result.volumeInfo.title">
-    <h3>{{result.volumeInfo.title}}</h3>
-    <h5>{{result.volumeInfo.subtitle}}</h5>
-  </li>
-</ul>
+<md-input-container>
+  <input
+    mdInput
+    type="search"
+    (input)="search(termCtrl.value)"
+    (focus)="showResults = true"
+    (blur)="showResults = false"
+    #termCtrl
+  >
+  <md-icon mdPrefix>search</md-icon>
+</md-input-container>
+
+<md-nav-list [class.hide]="!showResults">
+  <md-list-item
+    *ngFor="let result of searchResult | async"
+    (click)="termCtrl.value = result.volumeInfo.title; onSelect(result)"
+  >
+    <img
+      md-list-avatar
+      class="search-avatar"
+      [src]="result.volumeInfo.imageLinks?.smallThumbnail"
+      [alt]="result.volumeInfo.title"
+    >
+    <h3 md-line>{{result.volumeInfo.title}}</h3>
+    <h5 md-line>{{result.volumeInfo.subtitle}}</h5>
+  </md-list-item>
+</md-nav-list>
 

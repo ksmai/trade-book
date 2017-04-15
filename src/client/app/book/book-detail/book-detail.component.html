@@ -1,83 +1,103 @@
-<button routerLink="../">Back</button>
+<button md-icon-button routerLink="../">
+  <md-icon>arrow_back</md-icon>
+</button>
 
-<div *ngIf="info">
-  <h2>{{info.volumeInfo.title}}</h2>
-  <h5>{{info.volumeInfo.subtitle}}</h5>
+<md-card *ngIf="info">
+  <md-card-title>{{info.volumeInfo.title}}</md-card-title>
+  <md-card-subtitle>{{info.volumeInfo.subtitle}}</md-card-subtitle>
 
-  <img [src]="info.volumeInfo.imageLinks.large || info.volumeInfo.imageLinks.thumbnail" [alt]="info.volumeInfo.title">
+  <img
+    md-card-image
+    [src]="info.volumeInfo.imageLinks.large ||
+      info.volumeInfo.imageLinks.thumbnail"
+    [alt]="info.volumeInfo.title"
+  >
 
-  <dl>
-    <dt>Author(s)</dt>
-    <dd *ngFor="let author of info.volumeInfo.authors">{{author}}</dd>
+  <md-card-content>
+    <dl>
+      <dt>Author(s)</dt>
+      <dd *ngFor="let author of info.volumeInfo.authors">{{author}}</dd>
 
-    <dt>Publisher</dt>
-    <dd>{{info.volumeInfo.publisher}} ({{info.volumeInfo.publishedDate}})</dd>
+      <dt>Publisher</dt>
+      <dd>{{info.volumeInfo.publisher}} ({{info.volumeInfo.publishedDate}})</dd>
 
-    <dt>Description</dt>
-    <dd [innerHTML]="info.volumeInfo.description"></dd>
+      <dt>Description</dt>
+      <dd [innerHTML]="info.volumeInfo.description"></dd>
 
-    <ng-container *ngFor="let id of info.volumeInfo.industryIdentifiers">
-      <dt>{{id.type}}</dt>
-      <dd>{{id.identifier}}</dd>
-    </ng-container>
-
-    <dt>Page</dt>
-    <dd>{{info.volumeInfo.pageCount}}</dd>
-
-    <ng-container *ngIf="info.volumeInfo.dimensions && info.volumeInfo.dimensions.height && info.volumeInfo.dimensions.width && info.volumeInfo.dimensions.thickness">
-      <dt>Dimensions</dt>
-      <dd>
-        {{info.volumeInfo.dimensions.height}} (h)
-        &times; {{info.volumeInfo.dimensions.width}} (w)
-        &times; {{info.volumeInfo.dimensions.thickness}} (t)
-      </dd>
-    </ng-container>
-
-    <ng-container *ngIf="info.volumeInfo.mainCategory || info.volumeInfo.categories">
-      <dt>Category</dt>
-      <dd>{{info.volumeInfo.mainCategory}}</dd>
-      <ng-container *ngFor="let category of info.volumeInfo.categories">
-        <dd>{{category}}</dd>
+      <ng-container *ngFor="let id of info.volumeInfo.industryIdentifiers">
+        <dt>{{id.type}}</dt>
+        <dd>{{id.identifier}}</dd>
       </ng-container>
+
+      <dt>Page</dt>
+      <dd>{{info.volumeInfo.pageCount}}</dd>
+
+      <ng-container *ngIf="info.volumeInfo.dimensions && info.volumeInfo.dimensions.height && info.volumeInfo.dimensions.width && info.volumeInfo.dimensions.thickness">
+        <dt>Dimensions</dt>
+        <dd>
+          {{info.volumeInfo.dimensions.height}} (h)
+          &times; {{info.volumeInfo.dimensions.width}} (w)
+          &times; {{info.volumeInfo.dimensions.thickness}} (t)
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="info.volumeInfo.mainCategory || info.volumeInfo.categories">
+        <dt>Category</dt>
+        <dd>{{info.volumeInfo.mainCategory}}</dd>
+        <ng-container *ngFor="let category of info.volumeInfo.categories">
+          <dd>{{category}}</dd>
+        </ng-container>
+      </ng-container>
+
+      <dt>Rating</dt>
+      <dd>{{info.volumeInfo.averageRating}}</dd>
+
+      <dt>Language</dt>
+      <dd>{{info.volumeInfo.language}}</dd>
+    </dl>
+
+    <h3>People offering this book</h3>
+    <ng-container *ngIf="copies.length > 0; else noOffer">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Location</th>
+          <th>Last Login</th>
+          <th>Trade</th>
+        </tr>
+        <tr *ngFor="let copy of copies">
+          <td>{{copy.user.displayName || copy.user.name}}</td>
+          <td>{{copy.user.email || '-'}}</td>
+          <td>{{copy.user.location || '-'}}</td>
+          <td>{{copy.user.lastLogin | date}}</td>
+          <td>
+            <button
+              md-button
+              type="button"
+              (click)="initTrade(copy._id, copy.currentComment)"
+              [disabled]="copy.state === 'owned' ||
+                copy.state === 'completed'"
+            >Request a trade</button>
+            <p *ngIf="copy.state === 'completed'">You have already completed this trade</p>
+            <p *ngIf="copy.state === 'pending'">You currently have an ongoing trade with this user. By requesting again, the current trade will be reset.</p>
+          </td>
+        </tr>
+      </table>
     </ng-container>
+    <ng-template #noOffer>
+      No offer for this book at the moment.
+    </ng-template>
+  </md-card-content>
 
-    <dt>Rating</dt>
-    <dd>{{info.volumeInfo.averageRating}}</dd>
+  <md-card-actions align="end">
+    <button
+      md-button
+      type="button"
+      [disabled]="owned"
+      (click)="addBook()"
+    >Add to my collection</button>
+  </md-card-actions>
 
-    <dt>Language</dt>
-    <dd>{{info.volumeInfo.language}}</dd>
-  </dl>
-
-  <h3>People offering this book</h3>
-  <ng-container *ngIf="copies.length > 0; else noOffer">
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Location</th>
-        <th>Last Login</th>
-        <th>Trade</th>
-      </tr>
-      <tr *ngFor="let copy of copies">
-        <td>{{copy.user.displayName || copy.user.name}}</td>
-        <td>{{copy.user.email || '-'}}</td>
-        <td>{{copy.user.location || '-'}}</td>
-        <td>{{copy.user.lastLogin | date}}</td>
-        <td>
-          <button type="button" (click)="initTrade(copy._id, copy.currentComment)" [disabled]="copy.state === 'owned' || copy.state === 'completed'">
-            Request a trade
-          </button>
-          <p *ngIf="copy.state === 'completed'">You have already completed this trade.</p>
-          <p *ngIf="copy.state === 'pending'">You currently have an ongoing trade with this user. By requesting again, the current trade will be reset.</p>
-        </td>
-      </tr>
-    </table>
-  </ng-container>
-  <ng-template #noOffer>
-    No offer for this book at the moment.
-  </ng-template>
-
-  <button type="button" [disabled]="owned" (click)="addBook()">I have this book</button>
-
-</div>
+</md-card>
 

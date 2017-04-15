@@ -11,6 +11,7 @@ import { Book } from './book';
 })
 export class BookListComponent implements OnInit {
   books: Book[] = [];
+  hasDetail: boolean;
 
   constructor(
     private bookListService: BookListService,
@@ -20,6 +21,9 @@ export class BookListComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+    this.router.events.subscribe((evt: any) => {
+      this.hasDetail = evt.urlAfterRedirects !== '/book';
+    });
   }
 
   load(): void {

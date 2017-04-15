@@ -17,6 +17,7 @@ export class BookSearchComponent implements OnInit {
   searchTermStream = new Subject<string>();
 
   searchResult: Observable<Array<any>>;
+  showResults: boolean;
 
   constructor(private searchBookService: SearchBookService) {
   }

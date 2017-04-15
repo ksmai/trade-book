@@ -3,7 +3,7 @@
     md-tab-link
     routerLink="./"
     routerLinkActive #rlaInfo="routerLinkActive"
-    routerLinkActiveOptions="{ exact: true }"
+    [routerLinkActiveOptions]="{ exact: true }"
     [active]="rlaInfo.isActive"
   >Info</a>
 

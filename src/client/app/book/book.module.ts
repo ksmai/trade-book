@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MaterialModule } from '../material/material.module';
 import { BookComponent } from './book.component';
 import { MyBooksComponent } from './mybooks/my-books.component';
 import { BookListComponent } from './booklist/book-list.component';
@@ -13,6 +14,7 @@ import { BookDetailService } from './book-detail/book-detail.service';
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
     BookRoutingModule,
   ],
 

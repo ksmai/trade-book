@@ -8,10 +8,12 @@ import {
   MdSidenavModule,
   MdIconModule,
   MdSnackBarModule,
+  MdCardModule,
 } from '@angular/material';
 
 @NgModule({
   exports: [
+    MdCardModule,
     MdSnackBarModule,
     MdIconModule,
     MdInputModule,
