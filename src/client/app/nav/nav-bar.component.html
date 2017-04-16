@@ -9,10 +9,17 @@
       class="logo"
       routerLink="/"
       (click)="sidenav.close()"
-    >Book Trading App</a>
+    >
+      <md-icon class="logo-icon">chrome_reader_mode</md-icon>
+      <span class="logo-text">Book Trading App</span>
+    </a>
 
-    <ng-container *ngIf="userStream | async as user; else loginButton">
+    <ng-container
+      *ngIf="userStream | async as user; else loginButton"
+      class="user-area"
+    >
       <a
+        class="greeting"
         md-button
         routerLink="/setting"
       >Welcome, {{user.displayName || user.name}}!</a>

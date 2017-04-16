@@ -1,6 +1,13 @@
 .logo {
-  flex: 1;
   text-align: left;
+}
+
+.logo-icon {
+  margin-right: 22px;
+}
+
+.logo-text {
+  display: none;
 }
 
 .container {
@@ -20,3 +27,26 @@
     margin-right: 16px;
   }
 }
+
+.user-area {
+  display: flex;
+}
+
+.greeting {
+  flex: 2;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-transform: none;
+}
+
+@media (min-width: 769px) {
+  .logo {
+    flex: 3;
+  }
+  .logo-text {
+    display: inline;
+  }
+}
+

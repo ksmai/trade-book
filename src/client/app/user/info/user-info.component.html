@@ -1,66 +1,71 @@
-<h5>Optional information to help you trade books more easily!</h5>
-
 <form (ngSubmit)="updateInfo()" #infoForm="ngForm" *ngIf="ready">
-  <md-input-container>
-    <input
-      type="email"
-      placeholder="Email"
-      [(ngModel)]="email"
-      maxlength="256"
-      name="email"
-      pattern="[^@ ]+@[^@ ]+"
-      mdInput
-      #emailCtrl="ngModel"
-    >
-    <md-error *ngIf="emailCtrl.errors?.pattern">
-      Invalid email address
-    </md-error>
-    <md-hint *ngIf="emailCtrl.value?.length > 230" align="end">
-      {{emailCtrl.value.length}} / 256
-    </md-hint>
-  </md-input-container>
+  <md-card>
+    <md-card-title>Optional information to facilitate trades</md-card-title>
+    <md-card-content>
+      <md-input-container>
+        <input
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          maxlength="256"
+          name="email"
+          pattern="[^@ ]+@[^@ ]+"
+          mdInput
+          #emailCtrl="ngModel"
+        >
+        <md-error *ngIf="emailCtrl.errors?.pattern">
+          Invalid email address
+        </md-error>
+        <md-hint *ngIf="emailCtrl.value?.length > 230" align="end">
+          {{emailCtrl.value.length}} / 256
+        </md-hint>
+      </md-input-container>
 
-  <md-input-container>
-    <input
-      type="text"
-      placeholder="Display Name"
-      [(ngModel)]="displayName"
-      maxlength="1024"
-      name="displayName"
-      mdInput
-      #nameCtrl="ngModel"
-    >
-    <md-hint *ngIf="nameCtrl.value?.length > 1000" align="end">
-      {{nameCtrl.value.length}} / 1024
-    </md-hint>
-  </md-input-container>
+      <md-input-container>
+        <input
+          type="text"
+          placeholder="Display Name"
+          [(ngModel)]="displayName"
+          maxlength="255"
+          name="displayName"
+          mdInput
+          #nameCtrl="ngModel"
+        >
+        <md-hint *ngIf="nameCtrl.value?.length > 230" align="end">
+          {{nameCtrl.value.length}} / 255
+        </md-hint>
+      </md-input-container>
 
-  <md-input-container>
-    <textarea
-      placeholder="Location"
-      [(ngModel)]="location"
-      maxlength="1024"
-      name="location"
-      mdInput
-      mdTextareaAutosize
-      minRows="3"
-      #locationCtrl="ngModel"
-    ></textarea>
-    <md-hint *ngIf="locationCtrl.value?.length > 1000" align="end">
-      {{locationCtrl.value.length}} / 1024
-    </md-hint>
-  </md-input-container>
+      <md-input-container>
+        <textarea
+          placeholder="Location"
+          [(ngModel)]="location"
+          maxlength="1024"
+          name="location"
+          mdInput
+          mdTextareaAutosize
+          minRows="3"
+          #locationCtrl="ngModel"
+        ></textarea>
+        <md-hint *ngIf="locationCtrl.value?.length > 1000" align="end">
+          {{locationCtrl.value.length}} / 1024
+        </md-hint>
+      </md-input-container>
+    </md-card-content>
 
-  <button
-    md-button
-    type="submit"
-    [disabled]="!infoForm.form.valid"
-  >Update</button>
+    <md-card-actions>
+      <button
+        md-button
+        type="submit"
+        [disabled]="!infoForm.form.valid"
+      >Update</button>
 
-  <button
-    md-button
-    type="button"
-    (click)="reset()"
-  >Cancel</button>
+      <button
+        md-button
+        type="button"
+        (click)="reset()"
+      >Cancel</button>
+    </md-card-actions>
+  </md-card>
 </form>
 

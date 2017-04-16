@@ -1,77 +1,83 @@
 <form (ngSubmit)="signup()" #signupForm="ngForm">
-  <md-input-container>
-    <input
-      mdInput
-      type="text"
-      name="username"
-      [(ngModel)]="username"
-      placeholder="Username"
-      #nameCtrl="ngModel"
-      required
-      maxlength="255"
-      nameAvailable
-      pattern="^[A-Za-z0-9-_.@]+$"
-    >
-    <md-error *ngIf="nameCtrl.errors?.required">
-      Username is required
-    </md-error>
-    <md-error *ngIf="nameCtrl.errors?.nameAvailable">
-      "{{nameCtrl.value}}" has been taken
-    </md-error>
-    <md-error *ngIf="nameCtrl.errors?.pattern">
-      Only a-z 0-9 - _ . @
-    </md-error>
-    <md-hint *ngIf="nameCtrl.value?.length > 230" align="end">
-      {{nameCtrl.value.length}} / 255
-    </md-hint>
-  </md-input-container>
+  <md-card>
+    <md-card-content>
+      <md-input-container>
+        <input
+          mdInput
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="Username"
+          #nameCtrl="ngModel"
+          required
+          maxlength="255"
+          nameAvailable
+          pattern="^[A-Za-z0-9-_.@]+$"
+        >
+        <md-error *ngIf="nameCtrl.errors?.required">
+          Username is required
+        </md-error>
+        <md-error *ngIf="nameCtrl.errors?.nameAvailable">
+          "{{nameCtrl.value}}" has been taken
+        </md-error>
+        <md-error *ngIf="nameCtrl.errors?.pattern">
+          Only a-z 0-9 - _ . @
+        </md-error>
+        <md-hint *ngIf="nameCtrl.value?.length > 230" align="end">
+          {{nameCtrl.value.length}} / 255
+        </md-hint>
+      </md-input-container>
 
-  <md-input-container>
-    <input
-      mdInput
-      type="password"
-      name="password0"
-      [(ngModel)]="password0"
-      placeholder="Password"
-      #pwCtrl0="ngModel"
-      required
-      minlength="8"
-      [sameAs]="pwCtrl1"
-      nameOfOther="password1"
-    >
-    <md-error *ngIf="pwCtrl0.errors?.minlength || pwCtrl0.errors?.required;
-      else pwDiff0">
-      At least 8 characters
-    </md-error>
-    <ng-template #pwDiff0>
-      <md-error>Passwords do not match</md-error>
-    </ng-template>
-  </md-input-container>
+      <md-input-container>
+        <input
+          mdInput
+          type="password"
+          name="password0"
+          [(ngModel)]="password0"
+          placeholder="Password"
+          #pwCtrl0="ngModel"
+          required
+          minlength="8"
+          [sameAs]="pwCtrl1"
+          nameOfOther="password1"
+        >
+        <md-error *ngIf="pwCtrl0.errors?.minlength || pwCtrl0.errors?.required;
+          else pwDiff0">
+          At least 8 characters
+        </md-error>
+        <ng-template #pwDiff0>
+          <md-error>Passwords do not match</md-error>
+        </ng-template>
+      </md-input-container>
 
-  <md-input-container>
-    <input
-      mdInput
-      type="password"
-      name="password1"
-      [(ngModel)]="password1"
-      placeholder="Confirm password"
-      #pwCtrl1="ngModel"
-      required
-      minlength="8"
-      [sameAs]="pwCtrl0"
-      nameOfOther="password0"
-    >
-    <md-error *ngIf="pwCtrl1.errors?.minlength || pwCtrl1.errors?.required;
-      else pwDiff1">At least 8 characters</md-error>
-    <ng-template #pwDiff1>
-      <md-error>Passwords do not match</md-error>
-    </ng-template>
-  </md-input-container>
+      <md-input-container>
+        <input
+          mdInput
+          type="password"
+          name="password1"
+          [(ngModel)]="password1"
+          placeholder="Confirm password"
+          #pwCtrl1="ngModel"
+          required
+          minlength="8"
+          [sameAs]="pwCtrl0"
+          nameOfOther="password0"
+        >
+        <md-error *ngIf="pwCtrl1.errors?.minlength || pwCtrl1.errors?.required;
+          else pwDiff1">At least 8 characters</md-error>
+        <ng-template #pwDiff1>
+          <md-error>Passwords do not match</md-error>
+        </ng-template>
+      </md-input-container>
+    </md-card-content>
 
-  <button
-    md-raised-button
-    type="submit"
-    [disabled]="!signupForm.form.valid"
-  >Signup</button>
+    <md-card-actions align="start">
+      <button
+        md-raised-button
+        type="submit"
+        [disabled]="!signupForm.form.valid"
+      >Signup</button>
+    </md-card-actions>
+  </md-card>
 </form>
 
