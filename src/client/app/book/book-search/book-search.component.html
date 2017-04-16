@@ -8,9 +8,16 @@
     #termCtrl
   >
   <md-icon mdPrefix>search</md-icon>
+  <md-placeholder>{{customPlaceholder || 'Search'}}</md-placeholder>
 </md-input-container>
 
-<md-nav-list [class.hide]="!showResults">
+<md-nav-list [class.hide]="!showResults" dense>
+  <h2 md-subheader *ngIf="termCtrl.value; else noValue">
+    Results for "{{termCtrl.value}}"
+  </h2>
+  <ng-template #noValue>
+    <h2 md-subheader>Enter a term to search</h2>
+  </ng-template>
   <md-list-item
     *ngFor="let result of searchResult | async"
     (click)="termCtrl.value = result.volumeInfo.title; onSelect(result)"

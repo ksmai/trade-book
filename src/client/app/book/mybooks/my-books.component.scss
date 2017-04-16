@@ -1,0 +1,27 @@
+.my-books-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.add-book-area {
+  width: 90vw;
+  max-width: 400px;
+  position: relative;
+}
+
+.book-list {
+  width: 90vw;
+  min-width: 0;
+  max-width: 800px;
+  overflow: hidden;
+}
+
+.book-title,
+.book-subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

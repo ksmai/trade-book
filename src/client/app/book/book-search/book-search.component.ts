@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -13,6 +19,7 @@ import { SearchBookService } from './search-book.service';
   styleUrls: ['./book-search.component.scss'],
 })
 export class BookSearchComponent implements OnInit {
+  @Input() customPlaceholder: string;
   @Output() selectBook = new EventEmitter<any>();
   searchTermStream = new Subject<string>();
 

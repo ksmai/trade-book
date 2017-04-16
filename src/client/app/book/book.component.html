@@ -1,18 +1,20 @@
-<nav md-tab-nav-bar>
-    <a
-      md-tab-link
-      routerLink="./"
-      routerLinkActive #rlaList="routerLinkActive"
-      [routerLinkActiveOptions]="{ exact: true }"
-      [active]="rlaList.isActive"
-    >Book List</a>
+<section class="book-container">
+  <nav md-tab-nav-bar>
+      <a
+        md-tab-link
+        routerLink="./"
+        routerLinkActive #rlaList="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [active]="rlaList.isActive"
+      >Book List</a>
 
-    <a
-      md-tab-link
-      routerLink="./me"
-      routerLinkActive #rlaMe="routerLinkActive"
-      [active]="rlaMe.isActive"
-    >My Books</a>
-</nav>
-<router-outlet></router-outlet>
+      <a
+        md-tab-link
+        routerLink="./me"
+        routerLinkActive #rlaMe="routerLinkActive"
+        [active]="rlaMe.isActive"
+      >My Books</a>
+  </nav>
+  <router-outlet></router-outlet>
+</section>
 
