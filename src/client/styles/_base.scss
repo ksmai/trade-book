@@ -4,6 +4,12 @@ body {
   height: 100%;
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 a[md-list-item],
 [md-button],
 [md-raised-button],

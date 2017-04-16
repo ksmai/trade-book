@@ -1,0 +1,25 @@
+.landing-container {
+  width: 70vw;
+  margin: 10% auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
+.landing-icon {
+  font-size: 70vw;
+}
+
+@media (min-width: 769px) {
+  .landing-container {
+    width: 40vw;
+    margin: 5% auto;
+  }
+
+  .landing-icon {
+    font-size: 40vw;
+  }
+}
+
