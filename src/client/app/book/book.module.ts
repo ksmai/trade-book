@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { BookComponent } from './book.component';
@@ -18,6 +20,7 @@ import { BookDetailService } from './book-detail/book-detail.service';
     SharedModule,
     MaterialModule,
     BookRoutingModule,
+    InfiniteScrollModule,
   ],
 
   declarations: [

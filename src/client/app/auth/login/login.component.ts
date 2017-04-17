@@ -35,11 +35,11 @@ export class LoginComponent implements OnInit {
       .take(1)
       .subscribe(success => {
         if (success) {
-          this.snackbar.open('Welcome back!', null, { duration: 1000 });
+          this.snackbar.open('Welcome back!', null, { duration: 2000 });
           this.router.navigate([this.redirect]);
         } else {
           this.snackbar.open('Invalid username/password', null, {
-            duration: 1000,
+            duration: 2000,
           });
         }
       });

@@ -10,7 +10,7 @@
 
 .booklist-container.detailview {
   width: 95vw;
-  flex-flow: row-reverse wrap;
+  flex-direction: column;
   justify-content: flex-start;
 
   .bookmenu {
@@ -26,12 +26,26 @@
 
 @media (min-width: 769px) {
   .booklist-container.detailview {
-    flex-wrap: nowrap;
+    flex-direction: row-reverse;
     align-items: flex-start;
     justify-content: space-between;
 
     .book-menu {
       width: auto;
+      min-height: calc(100vh - 180px);
+      align-self: stretch;
+      justify-content: space-between;
+      position: relative;
+      flex: 0 0 30%;
+    }
+
+    .book-menu-list {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 90px;
+      bottom: 0;
+      overflow-y: auto;
     }
   }
 }
@@ -60,7 +74,7 @@
 }
 
 .book-menu-list {
-  max-width: 300px;
+  width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

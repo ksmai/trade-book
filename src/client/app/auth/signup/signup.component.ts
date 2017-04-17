@@ -36,12 +36,12 @@ export class SignupComponent implements OnInit {
       .subscribe(success => {
         if (success) {
           this.snackbar.open('Thanks for signing up!', null, {
-            duration: 1000,
+            duration: 2000,
           });
           this.router.navigate([this.redirect]);
         } else {
           this.snackbar.open('An error has occurred', null, {
-            duration: 1000,
+            duration: 2000,
           });
         }
       });

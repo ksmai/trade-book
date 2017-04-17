@@ -27,10 +27,10 @@ export class PasswordComponent {
     this.passwordService.update(this.oldPW, this.newPW)
       .subscribe(success => {
         if (success) {
-          this.snackbar.open('Password changed', null, { duration: 1000 });
+          this.snackbar.open('Password changed', null, { duration: 2000 });
           this.router.navigate(['/']);
         } else {
-          this.snackbar.open('Invalid password', null, { duration: 1000 });
+          this.snackbar.open('Invalid password', null, { duration: 2000 });
           this.error = true;
         }
       });

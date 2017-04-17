@@ -59,13 +59,13 @@ export class UserInfoComponent implements OnInit {
     this.authService.updateInfo(info)
       .subscribe(user => {
         if (user) {
-          this.snackbar.open('Info updated', null, { duration: 1000 });
+          this.snackbar.open('Info updated', null, { duration: 2000 });
           this.emailClean = this.email = user.email || '';
           this.locationClean = this.location = user.location || '';
           this.displayNameClean = this.displayName = user.displayName || '';
         } else {
           this.snackbar.open('An error has occured', null, {
-            duration: 1000,
+            duration: 2000,
           });
         }
       });

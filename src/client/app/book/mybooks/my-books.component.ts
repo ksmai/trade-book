@@ -35,7 +35,7 @@ export class MyBooksComponent implements OnInit {
       .fetch(refresh)
       .catch(() => {
         this.snackbar.open('Loading failed', null, {
-          duration: 1000,
+          duration: 2000,
         });
 
         return Observable.of([]);
