@@ -18,6 +18,8 @@
 
 .content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-nav a {
@@ -39,6 +41,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   text-transform: none;
+  text-align: right;
 }
 
 @media (min-width: 769px) {

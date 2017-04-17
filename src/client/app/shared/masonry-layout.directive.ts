@@ -6,6 +6,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
+import * as imagesLoaded from 'imagesloaded';
+
 // import * as Masonry from 'masonry-layout';
 // the above does not work for some reasons
 const Masonry = require('masonry-layout');
@@ -29,7 +31,9 @@ export class MasonryLayoutDirective implements OnChanges {
   updateLayout(): void {
     if (this.masonry) {
       this.masonry.reloadItems();
-      this.masonry.layout();
+      imagesLoaded(this.el.nativeElement).on('progress', () => {
+        this.masonry.layout();
+      });
     } else {
       this.masonry = new Masonry(this.el.nativeElement, {
         itemSelector: 'md-card',
