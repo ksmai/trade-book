@@ -7,7 +7,12 @@
   </section>
 
   <md-nav-list class="book-list">
-    <md-list-item *ngFor="let book of books | async" [class.highlight]="book._id === highlight">
+    <md-list-item
+      *ngFor="let book of books | async"
+      [class.highlight]="book._id === highlight"
+      [mdTooltip]="book.info.title +
+        (book.info.subtitle ? (': ' + book.info.subtitle) : '')"
+    >
       <img md-list-avatar [src]="book.info.thumbnail" [alt]="book.info.title">
       <a md-line [routerLink]="['/book', book.info.volumeID]">
         <h3 class="book-title">{{book.info.title}}</h3>

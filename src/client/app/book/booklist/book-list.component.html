@@ -9,12 +9,13 @@
     </section>
 
     <ng-container *ngIf="hasDetail; else cards">
-      <md-nav-list
-        *ngFor="let book of books"
-        (click)="gotoBook(book)"
-        class="book-menu-list"
-      >
-        <md-list-item>
+      <md-nav-list>
+        <md-list-item
+          *ngFor="let book of books"
+          (click)="gotoBook(book)"
+          class="book-menu-list"
+          [mdTooltip]="book.title+(book.subtitle?(': '+book.subtitle):'')"
+        >
           <img md-list-avatar [src]="book.thumbnail" [alt]="book.title">
           <h3 md-line>{{book.title}}</h3>
           <h6 md-line>{{book.subtitle}}</h6>
@@ -23,7 +24,11 @@
     </ng-container>
 
     <ng-template #cards>
-      <section class="card-area" [masonryLayout]="300" [masonryLength]="books.length">
+      <section
+        class="card-area"
+        [masonryLayout]="300"
+        [masonryLength]="books.length"
+      >
         <md-card
           *ngFor="let book of books"
           (click)="gotoBook(book)"

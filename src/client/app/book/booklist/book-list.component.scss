@@ -9,15 +9,18 @@
 }
 
 .booklist-container.detailview {
+  width: 95vw;
   flex-flow: row-reverse wrap;
   justify-content: flex-start;
 
   .bookmenu {
     flex: 0 1 300px;
+    overflow-y: hidden;
   }
 
   .book-detail {
     flex: 1;
+    overflow: hidden;
   }
 }
 
@@ -34,7 +37,7 @@
 }
 
 .search-area {
-  width: 90vw;
+  width: 90%;
   max-width: 400px;
   position: relative;
   margin-bottom: 33px;

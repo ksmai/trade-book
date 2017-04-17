@@ -8,8 +8,8 @@
 
   <img
     md-card-image
-    [src]="info.volumeInfo.imageLinks.large ||
-      info.volumeInfo.imageLinks.thumbnail"
+    [src]="info.volumeInfo.imageLinks?.large ||
+      info.volumeInfo.imageLinks?.thumbnail"
     [alt]="info.volumeInfo.title"
   >
 

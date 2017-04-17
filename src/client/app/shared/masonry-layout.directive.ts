@@ -27,7 +27,6 @@ export class MasonryLayoutDirective implements OnChanges {
   }
 
   updateLayout(): void {
-    console.log('updating masonry');
     if (this.masonry) {
       this.masonry.reloadItems();
       this.masonry.layout();
