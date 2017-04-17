@@ -24,13 +24,14 @@ function findBookInfo({ volumeID }) {
             return reject(new Error('Result mismatched'));
           }
 
+          const placeholderThumbnail = 'https://books.google.com/googlebooks/images/no_cover_thumb.gif';
           const {
             volumeInfo: {
               title,
               subtitle,
               imageLinks: {
-                thumbnail: originalThumbnail,
-              },
+                thumbnail: originalThumbnail = placeholderThumbnail,
+              } = { thumbnail: placeholderThumbnail },
             },
           } = result;
 
