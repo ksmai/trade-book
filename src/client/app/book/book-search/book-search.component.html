@@ -3,8 +3,8 @@
     mdInput
     type="search"
     (input)="search(termCtrl.value)"
-    (focus)="showResults = true"
-    (blur)="showResults = false"
+    (focus)="toggleResults(true)"
+    (blur)="toggleResults(false)"
     #termCtrl
   >
   <md-icon mdPrefix>search</md-icon>
@@ -21,6 +21,8 @@
   <md-list-item
     *ngFor="let result of searchResult | async"
     (click)="termCtrl.value = result.volumeInfo.title; onSelect(result)"
+    [mdTooltip]="result.volumeInfo.title +
+      (result.volumeInfo.subtitle ? (': '+result.volumeInfo.subtitle):'')"
   >
     <img
       md-list-avatar

@@ -42,6 +42,11 @@ export class BookSearchComponent implements OnInit {
 
   onSelect(book: any): void {
     this.selectBook.emit(book);
+    this.toggleResults(false);
+  }
+
+  toggleResults(bool: boolean): void {
+    setTimeout(() => this.showResults = bool, 300);
   }
 }
 
