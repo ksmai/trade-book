@@ -21,7 +21,7 @@ export class BookListService {
     }
 
     return this.http
-      .get(`/api/v1/book?skip=${skip}&limit=${skip + 10}`)
+      .get(`/api/v1/book?skip=${skip}&limit=${skip + 12}`)
       .map(res => {
         const books = res.json().books;
         if (books.length === 0) {

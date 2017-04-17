@@ -23,7 +23,7 @@
     </ng-container>
 
     <ng-template #cards>
-      <section class="card-area">
+      <section class="card-area" [masonryLayout]="300" [masonryLength]="books.length">
         <md-card
           *ngFor="let book of books"
           (click)="gotoBook(book)"
