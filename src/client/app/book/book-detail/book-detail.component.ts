@@ -8,6 +8,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/take';
 
 import { MyBooksService } from '../../core/my-books.service';
+import { ScrollService } from '../../core/scroll.service';
 
 @Component({
   templateUrl: './book-detail.component.html',
@@ -20,6 +21,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   owned = false;
 
   constructor(
+    private scrollService: ScrollService,
     private activatedRoute: ActivatedRoute,
     private myBooksService: MyBooksService,
     private router: Router
@@ -57,6 +59,8 @@ export class BookDetailComponent implements OnInit, OnDestroy {
             copy.state = 'request';
           }
         });
+
+        this.scrollService.scrollTo(0, 0);
       });
   }
 

@@ -1,6 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
+import { ScrollService } from './scroll.service';
 import { AuthService } from './auth.service';
 import { NameService } from './name.service';
 import { TradeService } from './trade.service';
@@ -22,6 +23,7 @@ import {
     AuthGuard,
     AuthService,
     NameService,
+    ScrollService,
     TradeService,
     MyBooksService,
     UnsaveGuard,
