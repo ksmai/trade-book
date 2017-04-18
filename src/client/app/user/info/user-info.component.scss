@@ -8,6 +8,10 @@ input {
   width: 100%;
 }
 
+textarea {
+  resize: vertical;
+}
+
 md-card {
   max-width: 600px;
 }
