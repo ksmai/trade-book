@@ -1,4 +1,8 @@
 <div class="container">
+  <button md-icon-button (click)="cancel()" class="close-button">
+    <md-icon>close</md-icon>
+  </button>
+
   <md-card *ngIf="book | async as book" class="request-card">
     <md-card-title>{{book.info.title}}</md-card-title>
     <md-card-subtitle>{{book.info.subtitle}}</md-card-subtitle>
