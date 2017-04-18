@@ -3,20 +3,33 @@
     <md-tab label="MY REQUESTS">
       <p
         class="empty-message"
-        *ngIf="(myRequests|async)?.length === 0"
+        *ngIf="(myRequests | async |
+          tradeFilter:'isCompleted':showMyCompleted)?.length === 0"
       >
         No requests yet
         <a md-raised-button color="accent" routerLink="/book">View book list</a>
       </p>
+
+      <div class="toggle">
+        <md-slide-toggle
+          *ngIf="(myRequests|async)?.length > 0"
+          [(ngModel)]="showMyCompleted"
+        >
+          {{showMyCompleted?'Only completed trades':'Only ongoing trades'}}
+        </md-slide-toggle>
+      </div>
+
       <div
         class="card-area"
         [masonryLayout]="250"
-        [masonryLength]="(myRequests|async)?.length"
+        [masonryLength]="(myRequests | async |
+          tradeFilter:'isCompleted':showMyCompleted)?.length"
         #mine="masonryLayout"
       >
         <md-card
           class="card"
-          *ngFor="let req of myRequests | async"
+          *ngFor="let req of myRequests | async |
+            tradeFilter:'isCompleted':showMyCompleted"
           [class.highlight]="highlight === req._id"
         >
           <a [routerLink]="['/book', req.book.info.volumeID]">
@@ -30,7 +43,7 @@
           </a>
           <dl>
             <dt>Comment</dt>
-            <dd class="comment">{{req.comment}}</dd>
+            <dd class="wrap">{{req.comment}}</dd>
             <dt>Request Date</dt>
             <dd>{{req.requestDate | date}}</dd>
             <dt>Status</dt>
@@ -63,23 +76,40 @@
     <md-tab label="THEIR REQUESTS" class="card-area">
       <p
         class="empty-message"
-        *ngIf="(theirRequests|async|tradeFilter:'isRejected':false)?.length === 0"
+        *ngIf="(theirRequests | async |
+          tradeFilter:'isRejected':false |
+          tradeFilter:'isCompleted':showTheirCompleted)?.length === 0"
       >
         No requests found
         <a md-raised-button color="accent" routerLink="/book/me">
           add more books
         </a>
       </p>
+
+      <div class="toggle">
+        <md-slide-toggle
+          *ngIf="(theirRequests | async |
+            tradeFilter:'isRejected':false)?.length > 0"
+          [(ngModel)]="showTheirCompleted"
+        >
+          {{showTheirCompleted ? 'Only completed trades' :
+            'Only ongoing trades'}}
+        </md-slide-toggle>
+      </div>
+
       <div
         class="card-area"
         [masonryLayout]="250"
-        [masonryLength]="(theirRequests|async|tradeFilter:'isRejected':false)?.length"
+        [masonryLength]="(theirRequests | async |
+          tradeFilter:'isRejected':false |
+          tradeFilter:'isCompleted':showTheirCompleted)?.length"
         #theirs="masonryLayout"
       >
         <md-card
           class="card"
           *ngFor="let req of theirRequests | async |
-            tradeFilter: 'isRejected': false"
+            tradeFilter: 'isRejected': false |
+            tradeFilter:'isCompleted':showTheirCompleted"
         >
           <a [routerLink]="['/book', req.book.info.volumeID]">
             <h3 md-card-title>{{req.book.info.title}}</h3>
@@ -94,13 +124,15 @@
           <ng-container md-card-content>
             <dl>
               <dt>Comment</dt>
-              <dd class="comment">{{req.comment}}</dd>
+              <dd class="wrap">{{req.comment}}</dd>
               <dt>Requester</dt>
-              <dd>{{req.requester.displayName || req.requester.name}}</dd>
+              <dd
+                class="wrap"
+              >{{req.requester.displayName || req.requester.name}}</dd>
               <dt>Email</dt>
-              <dd>{{req.requester.email || '-'}}</dd>
+              <dd class="wrap">{{req.requester.email || '-'}}</dd>
               <dt>Location</dt>
-              <dd>{{req.requester.location || '-'}}</dd>
+              <dd class="wrap">{{req.requester.location || '-'}}</dd>
               <dt>Last Login</dt>
               <dd>{{req.requester.lastLogin|date}}</dd>
               <dt>Request Date</dt>

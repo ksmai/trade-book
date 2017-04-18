@@ -14,6 +14,8 @@ export class TradeComponent implements OnInit {
   myRequests: Observable<Array<any>>;
   theirRequests: Observable<Array<any>>;
   highlight: string;
+  showMyCompleted = false;
+  showTheirCompleted = false;
 
   @ViewChild('mine') myMasonry: any;
   @ViewChild('theirs') theirMasonry: any;

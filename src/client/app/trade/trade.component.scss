@@ -51,7 +51,7 @@ dt {
   padding-top: .5em;
 }
 
-.comment {
+.wrap {
   overflow-wrap: break-word;
   white-space: pre-wrap;
 }
@@ -66,5 +66,12 @@ dt {
   font-size: .9em;
   font-weight: bold;
   color: #f44336;
+}
+
+.toggle {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 22px;
 }
 
