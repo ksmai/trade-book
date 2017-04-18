@@ -26,6 +26,10 @@ md-nav-list {
   transform: translateY(-1em);
 }
 
+md-nav-list:not(:hover) md-list-item:first-of-type {
+  background: rgba(0, 0, 0, .04);
+}
+
 .hide {
   opacity: 0;
   height: 0;

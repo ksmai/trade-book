@@ -5,6 +5,7 @@
     (input)="search(termCtrl.value)"
     (focus)="toggleResults(true)"
     (blur)="toggleResults(false)"
+    (keyup.enter)="enter()"
     #termCtrl
   >
   <md-icon mdPrefix>search</md-icon>
