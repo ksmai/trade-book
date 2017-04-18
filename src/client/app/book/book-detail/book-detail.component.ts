@@ -19,6 +19,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   info: any;
   subscription: Subscription;
   owned = false;
+  activeDesc: string;
 
   constructor(
     private scrollService: ScrollService,
@@ -85,6 +86,15 @@ export class BookDetailComponent implements OnInit, OnDestroy {
           this.router.navigate(['book', 'me', { id: book._id }]);
         }
       });
+  }
+
+  onHoverList(evt: any): void {
+    if (!evt || !evt.target || !evt.target.dataset) {
+      this.activeDesc = '';
+      return;
+    };
+
+    this.activeDesc = evt.target.dataset.desc;
   }
 }
 

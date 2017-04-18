@@ -14,27 +14,75 @@
   >
 
   <md-card-content>
-    <dl>
-      <dt>Author(s)</dt>
-      <dd *ngFor="let author of info.volumeInfo.authors">{{author}}</dd>
-
-      <dt>Publisher</dt>
-      <dd>{{info.volumeInfo.publisher}} ({{info.volumeInfo.publishedDate}})</dd>
-
-      <dt>Description</dt>
-      <dd [innerHTML]="info.volumeInfo.description"></dd>
-
-      <ng-container *ngFor="let id of info.volumeInfo.industryIdentifiers">
-        <dt>{{id.type}}</dt>
-        <dd>{{id.identifier}}</dd>
+    <dl (mouseover)="onHoverList($event)" (mouseout)="onHoverList()">
+      <ng-container *ngIf="info.volumeInfo.authors?.length">
+        <dt [class.active-desc]="activeDesc === 'author'" data-desc="author">
+          Author
+        </dt>
+        <dd
+          [class.active-desc]="activeDesc === 'author'" 
+          data-desc="author"
+          *ngFor="let author of info.volumeInfo.authors"
+        >{{author}}</dd>
       </ng-container>
 
-      <dt>Page</dt>
-      <dd>{{info.volumeInfo.pageCount}}</dd>
+      <ng-container *ngIf="info.volumeInfo.publisher">
+        <dt
+          [class.active-desc]="activeDesc === 'publisher'" 
+          data-desc="publisher"
+        >Publisher</dt>
+        <dd
+          [class.active-desc]="activeDesc === 'publisher'" 
+          data-desc="publisher"
+        >
+          {{info.volumeInfo.publisher}}
+          ({{info.volumeInfo.publishedDate || 'Unknown year'}})
+        </dd>
+      </ng-container>
+
+      <ng-container *ngIf="info.volumeInfo.description">
+        <dt
+          [class.active-desc]="activeDesc === 'description'" 
+          data-desc="description"
+        >Description</dt>
+        <dd
+          [class.active-desc]="activeDesc === 'description'" 
+          data-desc="description"
+          [innerHTML]="info.volumeInfo.description"
+        ></dd>
+      </ng-container>
+
+      <ng-container *ngFor="let id of info.volumeInfo.industryIdentifiers">
+        <dt
+          [class.active-desc]="activeDesc === id.type" 
+          [attr.data-desc]="id.type"
+        >{{id.type}}</dt>
+        <dd
+          [class.active-desc]="activeDesc === id.type" 
+          [attr.data-desc]="id.type"
+        >{{id.identifier}}</dd>
+      </ng-container>
+
+      <ng-container *ngIf="info.volumeInfo.pageCount">
+        <dt
+          [class.active-desc]="activeDesc === 'page'" 
+          data-desc="page"
+        >Page</dt>
+        <dd
+          [class.active-desc]="activeDesc === 'page'" 
+          data-desc="page"
+        >{{info.volumeInfo.pageCount}}</dd>
+      </ng-container>
 
       <ng-container *ngIf="info.volumeInfo.dimensions && info.volumeInfo.dimensions.height && info.volumeInfo.dimensions.width && info.volumeInfo.dimensions.thickness">
-        <dt>Dimensions</dt>
-        <dd>
+        <dt
+          [class.active-desc]="activeDesc === 'dimensions'" 
+          data-desc="dimensions"
+        >Dimensions</dt>
+        <dd
+          [class.active-desc]="activeDesc === 'dimensions'" 
+          data-desc="dimensions"
+        >
           {{info.volumeInfo.dimensions.height}} (h)
           &times; {{info.volumeInfo.dimensions.width}} (w)
           &times; {{info.volumeInfo.dimensions.thickness}} (t)
@@ -42,25 +90,49 @@
       </ng-container>
 
       <ng-container *ngIf="info.volumeInfo.mainCategory || info.volumeInfo.categories">
-        <dt>Category</dt>
-        <dd>{{info.volumeInfo.mainCategory}}</dd>
+        <dt
+          [class.active-desc]="activeDesc === 'category'" 
+          data-desc="category"
+        >Category</dt>
+        <dd
+          [class.active-desc]="activeDesc === 'category'" 
+          data-desc="category"
+        >{{info.volumeInfo.mainCategory}}</dd>
         <ng-container *ngFor="let category of info.volumeInfo.categories">
-          <dd>{{category}}</dd>
+          <dd
+            [class.active-desc]="activeDesc === 'category'" 
+            data-desc="category"
+          >{{category}}</dd>
         </ng-container>
       </ng-container>
 
-      <dt>Rating</dt>
-      <dd>{{info.volumeInfo.averageRating}}</dd>
+      <ng-container *ngIf="info.volumeInfo.averageRating">
+        <dt
+          [class.active-desc]="activeDesc === 'rating'" 
+          data-desc="rating"
+        >Rating</dt>
+        <dd
+          [class.active-desc]="activeDesc === 'rating'" 
+          data-desc="rating"
+        >{{info.volumeInfo.averageRating}}</dd>
+      </ng-container>
 
-      <dt>Language</dt>
-      <dd>{{info.volumeInfo.language}}</dd>
+      <ng-container *ngIf="info.volumeInfo.language">
+        <dt
+          [class.active-desc]="activeDesc === 'language'" 
+          data-desc="language"
+        >Language</dt>
+        <dd
+          [class.active-desc]="activeDesc === 'language'" 
+          data-desc="language"
+        >{{info.volumeInfo.language}}</dd>
+      </ng-container>
     </dl>
 
-    <h3>People offering this book</h3>
     <ng-container *ngIf="copies.length > 0; else noOffer">
       <table>
         <tr>
-          <th>Name</th>
+          <th>Offerer</th>
           <th>Email</th>
           <th>Location</th>
           <th>Last Login</th>
@@ -78,15 +150,21 @@
               (click)="initTrade(copy._id, copy.currentComment)"
               [disabled]="copy.state === 'owned' ||
                 copy.state === 'completed'"
-            >Request a trade</button>
-            <p *ngIf="copy.state === 'completed'">You have already completed this trade</p>
-            <p *ngIf="copy.state === 'pending'">You currently have an ongoing trade with this user. By requesting again, the current trade will be reset.</p>
+            >Request</button>
+            <p *ngIf="copy.state === 'completed'" class="reminder">
+              You have already completed this trade
+            </p>
+            <p *ngIf="copy.state === 'pending'" class="reminder">
+              You currently have an ongoing trade with this user. By requesting again, the current trade will be reset
+            </p>
           </td>
         </tr>
       </table>
     </ng-container>
     <ng-template #noOffer>
-      No offer for this book at the moment.
+      <p class="reminder">
+        No offer for this book at the moment
+      </p>
     </ng-template>
   </md-card-content>
 
