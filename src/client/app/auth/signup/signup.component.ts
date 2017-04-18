@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import 'rxjs/add/operator/take';
@@ -9,10 +15,11 @@ import { AuthService } from '../../core/auth.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, AfterViewInit {
   username: string = '';
   password0: string = '';
   password1: string = '';
+  @ViewChild('autofocus') autofocus: ElementRef;
 
   private redirect = '/';
 
@@ -28,6 +35,10 @@ export class SignupComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       (params: Params) => this.redirect = params['redirect'] || '/'
     );
+  }
+
+  ngAfterViewInit() {
+    this.autofocus.nativeElement.focus();
   }
 
   signup() {

@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  ElementRef,
+} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import 'rxjs/add/operator/take';
@@ -9,9 +15,10 @@ import { AuthService } from '../../core/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   username: string = '';
   password: string = '';
+  @ViewChild('autofocus') autofocus: ElementRef;
 
   private redirect = '/';
 
@@ -28,6 +35,10 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (params: Params) => this.redirect = params['redirect'] || '/'
       );
+  }
+
+  ngAfterViewInit() {
+    this.autofocus.nativeElement.focus();
   }
 
   login(username: string, password: string) {

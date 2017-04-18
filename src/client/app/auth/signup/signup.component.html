@@ -13,6 +13,8 @@
           maxlength="255"
           nameAvailable
           pattern="^[A-Za-z0-9-_.@]+$"
+          autofocus
+          #autofocus
         >
         <md-error *ngIf="nameCtrl.errors?.required">
           Username is required

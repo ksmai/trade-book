@@ -2,11 +2,30 @@
   <md-card>
     <md-card-content>
       <md-input-container>
-        <input type="text" placeholder="Username" name="username" [(ngModel)]="username" required #nameCtrl="ngModel" mdInput>
+        <input
+          type="text"
+          placeholder="Username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          #nameCtrl="ngModel"
+          #autofocus
+          mdInput
+          autofocus
+        >
         <md-error>Name is required</md-error>
       </md-input-container>
+
       <md-input-container>
-        <input type="password" mdInput name="password" [(ngModel)]="password" required minlength="8" #pwCtrl="ngModel">
+        <input
+          type="password"
+          mdInput
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="8"
+          #pwCtrl="ngModel"
+        >
         <md-placeholder>Password</md-placeholder>
         <md-error>Password has at least 8 characters</md-error>
       </md-input-container>
