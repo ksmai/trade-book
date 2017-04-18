@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
@@ -14,6 +14,9 @@ export class TradeComponent implements OnInit {
   myRequests: Observable<Array<any>>;
   theirRequests: Observable<Array<any>>;
   highlight: string;
+
+  @ViewChild('mine') myMasonry: any;
+  @ViewChild('theirs') theirMasonry: any;
 
   constructor(
     private snackbar: MdSnackBar,
@@ -87,6 +90,19 @@ export class TradeComponent implements OnInit {
     this.router.navigate(['/']);
     
     return Observable.of([]);
+  }
+
+  relayout(evt: any) {
+    switch (evt.index) {
+      case 0:
+        this.myMasonry.updateLayout();
+        break;
+      case 1:
+        this.theirMasonry.updateLayout();
+        break;
+      default:
+        return;
+    }
   }
 }
 

@@ -14,6 +14,7 @@ const Masonry = require('masonry-layout');
 
 @Directive({
   selector: '[masonryLayout]',
+  exportAs: 'masonryLayout',
 })
 export class MasonryLayoutDirective implements OnChanges {
   @Input('masonryLayout') columnWidth: number;
