@@ -52,7 +52,9 @@ export class InitTradeComponent implements OnInit {
         if (trade) {
           this.success = true;
           this.tradeID = trade._id;
-          this.snackbar.open('Trade requested', null, { duration: 2000 });
+          this.snackbar.open('Trade request submitted', null, {
+            duration: 2000,
+          });
         } else {
           this.snackbar.open('Failed to start the trade', null, {
             duration: 2000,

@@ -1,7 +1,5 @@
-<md-sidenav mode="side" align="end" opened="true">
-  <h2>Request a trade</h2>
-  <md-card *ngIf="book | async as book">
-    <img md-card-image [src]="book.info.thumbnail" [alt]="book.info.title">
+<div class="container">
+  <md-card *ngIf="book | async as book" class="request-card">
     <md-card-title>{{book.info.title}}</md-card-title>
     <md-card-subtitle>{{book.info.subtitle}}</md-card-subtitle>
     <md-card-content>
@@ -32,7 +30,7 @@
           md-button
           type="submit"
           [disabled]="!commentForm.form.valid"
-        >Submit</button>
+        >Submit Request</button>
         <button
           md-button
           type="reset"
@@ -61,5 +59,5 @@
       </md-card-actions>
     </ng-template>
   </md-card>
-</md-sidenav>
+</div>
 

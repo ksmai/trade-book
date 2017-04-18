@@ -1,0 +1,36 @@
+.container {
+  background: rgba(255, 255, 255, .85);
+  width: 400px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.request-card {
+  background: none;
+  width: 100%;
+  padding: 20px;
+}
+
+dd {
+  color: rgba(0, 0, 0, .54);
+  padding-top: .3em;
+  padding-bottom: .3em;
+}
+
+dt {
+  margin-top: .5em;
+  padding-top: .5em;
+}
+
+md-input-container,
+textarea {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+
