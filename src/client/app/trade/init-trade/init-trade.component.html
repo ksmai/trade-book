@@ -1,67 +1,65 @@
-<div class="container">
-  <button md-icon-button (click)="cancel()" class="close-button">
-    <md-icon>close</md-icon>
-  </button>
+<button md-icon-button (click)="cancel()" class="close-button">
+  <md-icon>close</md-icon>
+</button>
 
-  <md-card *ngIf="book | async as book" class="request-card">
-    <md-card-title>{{book.info.title}}</md-card-title>
-    <md-card-subtitle>{{book.info.subtitle}}</md-card-subtitle>
-    <md-card-content>
-      <dl>
-        <dt>Owner's name</dt>
-        <dd>{{book.user.displayName || book.user.name}}</dd>
-        <dt>Email</dt>
-        <dd>{{book.user.email || 'Not provided'}}</dd>
-        <dt>Location</dt>
-        <dd>{{book.user.location || 'Not Provided'}}</dd>
-      </dl>
-    </md-card-content>
+<md-card *ngIf="book | async as book" class="request-card">
+  <md-card-title>{{book.info.title}}</md-card-title>
+  <md-card-subtitle>{{book.info.subtitle}}</md-card-subtitle>
+  <md-card-content>
+    <dl>
+      <dt>Owner's name</dt>
+      <dd>{{book.user.displayName || book.user.name}}</dd>
+      <dt>Email</dt>
+      <dd>{{book.user.email || 'Not provided'}}</dd>
+      <dt>Location</dt>
+      <dd>{{book.user.location || 'Not Provided'}}</dd>
+    </dl>
+  </md-card-content>
 
-    <md-card-actions *ngIf="!success; else finish">
-      <form (ngSubmit)="initTrade(book._id)" #commentForm="ngForm">
-        <md-input-container>
-          <textarea
-            mdInput
-            mdTextareaAutosize
-            [(ngModel)]="comment"
-            name="comment"
-            required
-          ></textarea>
-          <md-placeholder>Comments</md-placeholder>
-        </md-input-container>
+  <md-card-actions *ngIf="!success; else finish">
+    <form (ngSubmit)="initTrade(book._id)" #commentForm="ngForm">
+      <md-input-container>
+        <textarea
+          mdInput
+          mdTextareaAutosize
+          [(ngModel)]="comment"
+          name="comment"
+          required
+        ></textarea>
+        <md-placeholder>Comments</md-placeholder>
+      </md-input-container>
 
-        <button
-          md-button
-          type="submit"
-          [disabled]="!commentForm.form.valid"
-        >Submit Request</button>
-        <button
-          md-button
-          type="reset"
-        >Clear</button>
-        <button
-          md-button
-          type="button"
-          (click)="cancel()"
-        >Cancel</button>
-      </form>
+      <button
+        md-button
+        type="submit"
+        [disabled]="!commentForm.form.valid"
+      >Submit Request</button>
+      <button
+        md-button
+        type="reset"
+      >Clear</button>
+      <button
+        md-button
+        type="button"
+        (click)="cancel()"
+      >Cancel</button>
+    </form>
+  </md-card-actions>
+
+  <ng-template #finish>
+    <md-card-actions>
+      <button
+        md-button
+        type="button"
+        (click)="view()"
+      >View my requests</button>
+
+      <button
+        md-button
+        type="button"
+        (click)="cancel()"
+      >Close</button>
     </md-card-actions>
-
-    <ng-template #finish>
-      <md-card-actions>
-        <button
-          md-button
-          type="button"
-          (click)="view()"
-        >View my requests</button>
-
-        <button
-          md-button
-          type="button"
-          (click)="cancel()"
-        >Close</button>
-      </md-card-actions>
-    </ng-template>
-  </md-card>
-</div>
+  </ng-template>
+</md-card>
 

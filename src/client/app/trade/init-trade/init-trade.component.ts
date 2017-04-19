@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MdSnackBar, MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { TradeService } from '../../core/trade.service';
+import { scaleInOut } from '../../app-routing.animations';
 
 @Component({
   templateUrl: './init-trade.component.html',
   styleUrls: ['./init-trade.component.scss'],
+  animations: [scaleInOut],
 })
 export class InitTradeComponent implements OnInit {
+  @HostBinding('@scaleInOut') scaleInOut = true;
+
   book: Observable<any>;
   tradeID: string;
   comment = '';
