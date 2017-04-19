@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BookListService } from './book-list.service';
 import { Book } from './book';
+import { fadeInOut } from '../../app-routing.animations';
 
 @Component({
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.scss'],
   providers: [BookListService],
+  animations: [fadeInOut],
 })
 export class BookListComponent implements OnInit {
+  @HostBinding('@fadeInOut') fadeInOut = true;
+  @HostBinding('style.display') display = 'block';
+
   books: Book[] = [];
   hasDetail: boolean;
 

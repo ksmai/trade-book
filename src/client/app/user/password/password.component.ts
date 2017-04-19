@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 
 import { PasswordService } from './password.service';
+import { fadeInOut } from '../../app-routing.animations';
 
 @Component({
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.scss'],
   providers: [PasswordService],
+  animations: [fadeInOut],
 })
 export class PasswordComponent {
+  @HostBinding('@fadeInOut') fadeInOut = true;
+  @HostBinding('style.display') display = 'block';
+
   oldPW: string = '';
   newPW: string = '';
   confirmPW: string = '';

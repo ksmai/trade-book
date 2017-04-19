@@ -4,18 +4,24 @@ import {
   AfterViewInit,
   ElementRef,
   ViewChild,
+  HostBinding,
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import 'rxjs/add/operator/take';
 
 import { AuthService } from '../../core/auth.service';
+import { fadeInOut } from '../../app-routing.animations';
 
 @Component({
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
+  animations: [fadeInOut],
 })
 export class SignupComponent implements OnInit, AfterViewInit {
+  @HostBinding('@fadeInOut') fadeInOut = true;
+  @HostBinding('style.display') display = 'block';
+
   username: string = '';
   password0: string = '';
   password1: string = '';

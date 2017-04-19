@@ -4,18 +4,24 @@ import {
   ViewChild,
   AfterViewInit,
   ElementRef,
+  HostBinding,
 } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import 'rxjs/add/operator/take';
 
 import { AuthService } from '../../core/auth.service';
+import { fadeInOut } from '../../app-routing.animations';
 
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  animations: [fadeInOut],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
+  @HostBinding('@fadeInOut') fadeInOut = true;
+  @HostBinding('style.display') display = 'block';
+
   username: string = '';
   password: string = '';
   @ViewChild('autofocus') autofocus: ElementRef;

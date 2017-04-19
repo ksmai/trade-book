@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { MdSnackBar, MdDialog } from '@angular/material';
 
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { AuthService } from '../../core/auth.service';
+import { fadeInOut } from '../../app-routing.animations';
 
 @Component({
   templateUrl: './user-info.component.html',
   styleUrls: ['./user-info.component.scss'],
+  animations: [fadeInOut],
 })
 export class UserInfoComponent implements OnInit {
+  @HostBinding('@fadeInOut') fadeInOut = true;
+  @HostBinding('style.display') display = 'block';
+
   displayName: string;
   email: string;
   location: string;

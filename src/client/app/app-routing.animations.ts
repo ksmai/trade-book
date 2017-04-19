@@ -21,3 +21,11 @@ export const scaleInOut: AnimationTriggerMetadata = trigger('scaleInOut', [
   ]),
 ]);
 
+export const fadeInOut: AnimationTriggerMetadata = trigger('fadeInOut', [
+  state('*', style({ opacity: 1 })),
+  transition(':enter', [
+    style({ opacity: 0 }),
+    animate(ROUTE_ENTER_EASE),
+  ]),
+]);
+

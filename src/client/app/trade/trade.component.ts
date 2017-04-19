@@ -1,14 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { TradeService } from '../core/trade.service';
+import { fadeInOut } from '../app-routing.animations';
 
 @Component({
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.scss'],
+  animations: [fadeInOut],
 })
 export class TradeComponent implements OnInit {
   myRequests: Observable<Array<any>>;
@@ -19,6 +21,8 @@ export class TradeComponent implements OnInit {
 
   @ViewChild('mine') myMasonry: any;
   @ViewChild('theirs') theirMasonry: any;
+  @HostBinding('@fadeInOut') fadeInOut = true;
+  @HostBinding('style.display') display = 'block';
 
   constructor(
     private snackbar: MdSnackBar,
