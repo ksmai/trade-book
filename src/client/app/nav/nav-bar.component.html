@@ -4,15 +4,16 @@
       <md-icon>menu</md-icon>
     </button>
 
-    <a
-      md-button
-      class="logo"
-      routerLink="/"
-      (click)="sidenav.close()"
-    >
-      <md-icon class="logo-icon">chrome_reader_mode</md-icon>
-      <span class="logo-text">Book Trading App</span>
-    </a>
+    <div class="logo">
+      <a
+        md-button
+        routerLink="/"
+        (click)="sidenav.close()"
+      >
+        <md-icon class="logo-icon">chrome_reader_mode</md-icon>
+        <span class="logo-text">Book Trading App</span>
+      </a>
+    </div>
 
     <ng-container
       *ngIf="userStream | async as user; else loginButton"

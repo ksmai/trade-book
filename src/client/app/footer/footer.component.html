@@ -1,0 +1,13 @@
+<md-toolbar color="primary">
+  <div class="stretch">
+    <button md-button (click)="backToTop()" *ngIf="showBackToTop">
+      Back To Top
+    </button>
+  </div>
+
+  <a
+    href="https://github.com/ksmai/trade-book"
+    md-button
+  >&copy; {{author}}, {{year}}</a>
+</md-toolbar>
+

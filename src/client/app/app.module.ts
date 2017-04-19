@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { BookModule } from './book/book.module';
 import { TradeModule } from './trade/trade.module';
+import { FooterModule } from './footer/footer.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { TradeModule } from './trade/trade.module';
     CoreModule,
     NavModule,
     LandingModule,
+    FooterModule,
     AuthModule,
     UserModule,
     BookModule,

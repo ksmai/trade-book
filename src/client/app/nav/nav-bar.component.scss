@@ -1,4 +1,5 @@
 .logo {
+  flex: 3;
   text-align: left;
 }
 
@@ -13,7 +14,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
 }
 
 .content {
@@ -32,11 +33,13 @@
 
 .user-area {
   display: flex;
+  flex: 2;
+  min-width: 0;
 }
 
 .greeting {
-  flex: 2;
   min-width: 0;
+  max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -45,9 +48,6 @@
 }
 
 @media (min-width: 769px) {
-  .logo {
-    flex: 3;
-  }
   .logo-text {
     display: inline;
   }
