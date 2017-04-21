@@ -1,7 +1,10 @@
+$yellow: #f9edbe;
+$light-yellow: lighten($yellow, 5%);
+
 :host {
   display: block;
-  background: rgba(#ffee58, .85);
-  background: linear-gradient(rgba(#ffee58, .85), rgba(#fff176, .85));
+  background: rgba($yellow, .85);
+  background: linear-gradient(rgba($yellow, .85), rgba($light-yellow, .85));
   width: 400px;
   max-width: 90vw;
   position: fixed;
@@ -10,6 +13,7 @@
   z-index: 100;
   max-height: 90vh;
   overflow-y: auto;
+  border: 2px solid #f0c36d;
 }
 
 .request-card {
@@ -38,5 +42,13 @@ textarea {
 
 textarea {
   resize: vertical;
+}
+
+.close-button {
+  transition: color .09s cubic-bezier(.4, 0, .2, 1);
+
+  &:hover {
+    color: #f44336;
+  }
 }
 

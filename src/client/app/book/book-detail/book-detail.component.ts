@@ -89,12 +89,20 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   }
 
   onHoverList(evt: any): void {
-    if (!evt || !evt.target || !evt.target.dataset) {
-      this.activeDesc = '';
-      return;
-    };
+    const supported = evt && evt.target && evt.target.dataset;
+    if (!supported) return;
 
-    this.activeDesc = evt.target.dataset.desc;
+    if (evt.target.dataset.desc) {
+      this.activeDesc = evt.target.dataset.desc;
+    } else if(evt.target.parentNode && evt.target.parentNode.dataset.desc) {
+      // a workaround for the nested element tags returned from
+      // Google API
+      this.activeDesc = evt.target.parentNode.dataset.desc;
+    }
+  }
+
+  onMouseout(): void {
+    this.activeDesc = '';
   }
 }
 

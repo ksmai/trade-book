@@ -14,7 +14,7 @@
   >
 
   <md-card-content>
-    <dl (mouseover)="onHoverList($event)" (mouseout)="onHoverList()">
+    <dl (mouseover)="onHoverList($event)" (mouseout)="onMouseout()">
       <ng-container *ngIf="info.volumeInfo.authors?.length">
         <dt [class.active-desc]="activeDesc === 'author'" data-desc="author">
           Author

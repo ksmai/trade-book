@@ -40,6 +40,7 @@ export class MasonryLayoutDirective implements OnChanges {
         itemSelector: 'md-card',
         columnWidth: this.columnWidth,
         gutter: 30,
+        transitionDuration: 0,
       });
     }
   }

@@ -2,23 +2,22 @@ $active-border: .6em;
 
 dd {
   color: rgba(0, 0, 0, .54);
-  padding-left: 3.3em;
+  padding-left: 2.7em;
   padding-top: .3em;
   padding-bottom: .3em;
-
-  &.active-desc {
-    padding-left: 3.3em - $active-border;
-  }
+  border-left: $active-border solid transparent;
 }
 
 dt {
   margin-top: .5em;
   padding-top: .5em;
-  padding-left: 1.3em;
+  padding-left: .7em;
+  border-left: $active-border solid transparent;
+}
 
-  &.active-desc {
-    padding-left: 1.3em - $active-border;
-  }
+dd,
+dt {
+  transition: all .09s cubic-bezier(.4, 0, .2, 1);
 }
 
 dl {
@@ -28,7 +27,7 @@ dl {
 
 .active-desc {
   background: rgba(0, 0, 0, .04);
-  border-left: $active-border solid #ff4081;
+  border-color: #ff4081;
 }
 
 table,
