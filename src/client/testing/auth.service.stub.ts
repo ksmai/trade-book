@@ -4,5 +4,8 @@ import { Injectable } from '@angular/core';
 export class AuthServiceStub {
   signup(name: string, pw: string) {
   }
+
+  login(name: string, pw: string) {
+  }
 }
 
