@@ -23,8 +23,14 @@ describe('AuthComponent', () => {
     linkDes = fixture.debugElement.queryAll(By.css('a'));
   });
 
-  it('has 2 links', () => {
+  it('has 2 links (login/signup)', () => {
     expect(linkDes.length).toBe(2);
+
+    const text = linkDes
+      .map(de => de.nativeElement.textContent)
+      .join(',');
+    expect(text).toMatch(/sign\s*up/i);
+    expect(text).toMatch(/log\s*in/i);
   });
 });
 

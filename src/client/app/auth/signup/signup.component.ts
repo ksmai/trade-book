@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.autofocus.nativeElement.focus();
+    setTimeout(() => this.autofocus.nativeElement.focus(), 0);
   }
 
   signup() {
