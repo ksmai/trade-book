@@ -11,6 +11,7 @@ import {
   MdIconModule,
   MdSnackBarModule,
   MdCardModule,
+  MdDialogModule,
 } from '@angular/material';
 
 @NgModule({
@@ -26,6 +27,7 @@ import {
     MdSidenavModule,
     MdToolbarModule,
     MdListModule,
+    MdDialogModule,
   ],
 })
 export class MaterialModule {

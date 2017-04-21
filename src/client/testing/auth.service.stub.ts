@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/of';
 
 @Injectable()
 export class AuthServiceStub {
+  debugSubject = new BehaviorSubject(null);
+  user$ = this.debugSubject.asObservable();
+
   signup(name: string, pw: string) {
   }
 
@@ -15,7 +19,13 @@ export class AuthServiceStub {
   }
 
   loadUser(refresh: boolean = false) {
-    return Observable.of(null);
+    return this.user$;
+  }
+
+  updateInfo(info: { [key: string]: string }) {
+    this.debugSubject.next(info);
+
+    return this.user$;
   }
 }
 
