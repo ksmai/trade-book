@@ -25,6 +25,7 @@
         routerLink="/setting"
       >Welcome, {{user.displayName || user.name}}!</a>
       <button
+        class="logout-button"
         md-icon-button
         routerLink="/"
         (click)="logout()"
@@ -33,6 +34,7 @@
 
     <ng-template #loginButton>
       <a
+        class="login-button"
         md-raised-button
         routerLink="/login"
         color="accent"
