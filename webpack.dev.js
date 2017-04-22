@@ -11,6 +11,7 @@ const config = {
 
   entry: {
     app: ['./src/client/main', 'webpack-hot-middleware/client'],
+    polyfills: './src/client/polyfills',
   },
 
   output: {
@@ -59,7 +60,7 @@ const config = {
     ),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: 'development',
+        NODE_ENV: JSON.stringify('development'),
       },
     }),
     new HTMLWebpackPlugin({
