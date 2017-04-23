@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const AotPlugin = require('@ngtools/webpack').AotPlugin;
+const FaviconsPlugin = require('favicons-webpack-plugin');
 
 const CLIENT = path.resolve(__dirname, 'src', 'client');
 const DIST = path.resolve(__dirname, 'dist');
@@ -115,6 +116,7 @@ const config = {
       sourceMap: true,
     }),
     new ExtractTextPlugin('styles.[contenthash].css'),
+    new FaviconsPlugin('assets/favicon.svg'),
     new HTMLWebpackPlugin({
       template: INDEX,
       minify: {
