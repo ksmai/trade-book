@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import path from 'path';
 import session from 'express-session';
+import cookieSession from 'cookie-session';
 
 import apiRouter from './api';
 import { authRouter } from './auth';
@@ -31,7 +32,13 @@ mongoose
 const app = express();
 app.use(compression());
 app.use(helmet());
-app.use(session(SESSION_OPTS));
+if (process.env.NODE_ENV === 'production') {
+  app.use(cookieSession(Object.assign({
+    maxAge: 24 * 60 * 60 * 1000,
+  }, SESSION_OPTS)));
+} else {
+  app.use(session(SESSION_OPTS));
+}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
