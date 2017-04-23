@@ -16,7 +16,8 @@
     "build:client": "cross-env NODE_ENV=production webpack",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack.server.js",
     "build": "npm run clean && npm run build:client && npm run build:server",
-    "start": "cross-env NODE_ENV=production node index.js"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
