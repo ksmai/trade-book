@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
@@ -22,6 +23,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   activeDesc: string;
 
   constructor(
+    private snackbar: MdSnackBar,
     private scrollService: ScrollService,
     private activatedRoute: ActivatedRoute,
     private myBooksService: MyBooksService,
@@ -84,6 +86,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
       .subscribe(book => {
         if (book) {
           this.router.navigate(['book', 'me', { id: book._id }]);
+          this.snackbar.open('Book added', null, { duration: 2000 });
         }
       });
   }
