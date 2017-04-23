@@ -8,7 +8,7 @@ const CLIENT = path.resolve(__dirname, 'src', 'client');
 const DIST = path.resolve(__dirname, 'dist');
 const INDEX = path.join(CLIENT, 'index.html');
 const TSCONFIG = path.join(__dirname, 'tsconfig.json');
-const APP_MODULE = path.join(CLIENT, 'app', 'app.module.ts') + '#AppModule';
+const APP_MODULE = path.join(CLIENT, 'app', 'app.module') + '#AppModule';
 const TEST_HELPERS = path.join(CLIENT, 'testing');
 
 const config = {
@@ -33,10 +33,7 @@ const config = {
     rules: [
       {
         test: /\.ts$/,
-        include: CLIENT,
-        exclude: TEST_HELPERS,
-      //  use: '@ngtools/webpack',
-        use: ['awesome-typescript-loader', 'angular2-template-loader'],
+        use: '@ngtools/webpack',
       },
       {
         test: /\.component\.html$/,
@@ -110,13 +107,13 @@ const config = {
       filename: 'manifest.[chunkhash].js',
       minChunks: Infinity,
     }),
-/*
     new AotPlugin({
       tsConfigPath: TSCONFIG,
       entryModule: APP_MODULE,
     }),
-*/
-    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+    }),
     new ExtractTextPlugin('styles.[contenthash].css'),
     new HTMLWebpackPlugin({
       template: INDEX,

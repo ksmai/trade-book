@@ -13,7 +13,7 @@
     "test:client": "cross-env NODE_ENV=test karma start",
     "test": "concurrently \"npm run test:server\" \"npm run test:client\"",
     "clean": "rimraf dist",
-    "build:client": "cross-env NODE_ENV=production webpack --verbose",
+    "build:client": "cross-env NODE_ENV=production webpack",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack.server.js",
     "build": "npm run clean && npm run build:client && npm run build:server",
     "start": "cross-env NODE_ENV=production node index.js"
@@ -99,6 +99,7 @@
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.3",
+    "source-map-explorer": "^1.3.3",
     "style-loader": "^0.16.1",
     "supertest": "^3.0.0",
     "to-string-loader": "^1.1.5",
