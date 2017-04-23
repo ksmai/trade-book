@@ -7,13 +7,9 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import path from 'path';
 import session from 'express-session';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import apiRouter from './api';
 import { authRouter } from './auth';
-import webpackDevConfig from '../../webpack.config';
 
 const PORT = process.env.PORT || 3000;
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost/trade-book';
@@ -43,18 +39,35 @@ app.use(passport.session());
 app.use(authRouter);
 app.use('/api/v1', apiRouter);
 
-const compiler = webpack(webpackDevConfig);
-const instance = webpackDevMiddleware(compiler);
-app.use(instance);
-app.use(webpackHotMiddleware(compiler));
+if (process.env.NODE_ENV !== 'production') {
+  const webpack = require('webpack');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
 
-app.use(historyApiFallback());
-app.use(instance);
+  const webpackDevConfig = require('../../webpack.config');
+
+  const compiler = webpack(webpackDevConfig);
+  const instance = webpackDevMiddleware(compiler);
+  app.use(instance);
+  app.use(webpackHotMiddleware(compiler));
+  app.use(historyApiFallback());
+  app.use(instance);
+} else {
+  const DIST = path.join(__dirname, '..', '..', 'dist');
+
+  app.use(express.static(DIST));
+  app.get('*', (req, res) => res.sendFile('index.html', {
+    root: DIST,
+  }));
+}
+
 // for express error handler
 /* eslint-disable-next-line no-unused-vars: "off' */
 app.use((err, req, res, next) => res.status(500).end());
 
-app.listen(PORT, () => console.log(`Development Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(
+  `${process.env.NODE_ENV} server running on port ${PORT}`
+));
 
 export default app;
 

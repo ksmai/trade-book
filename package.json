@@ -14,7 +14,9 @@
     "test": "concurrently \"npm run test:server\" \"npm run test:client\"",
     "clean": "rimraf dist",
     "build:client": "cross-env NODE_ENV=production webpack --verbose",
-    "build": "npm run clean && npm run build:client"
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack.server.js",
+    "build": "npm run clean && npm run build:client && npm run build:server",
+    "start": "cross-env NODE_ENV=production node index.js"
   },
   "repository": {
     "type": "git",
@@ -64,6 +66,7 @@
     "@types/masonry-layout": "^4.0.3",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.1.2",
+    "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
@@ -97,11 +100,13 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "supertest": "^3.0.0",
+    "to-string-loader": "^1.1.5",
     "typescript": "^2.2.2",
     "url-loader": "^0.5.8",
     "webpack": "^2.3.2",
     "webpack-dev-middleware": "^1.10.1",
-    "webpack-hot-middleware": "^2.17.1"
+    "webpack-hot-middleware": "^2.17.1",
+    "webpack-node-externals": "^1.5.4"
   },
   "nyc": {
     "include": [

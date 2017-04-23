@@ -48,12 +48,12 @@ const config = {
         },
       },
       {
-        test: /\.component\.scss$/,
-        use: ['raw-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+        test: /\.component\.s?css$/,
+        use: ['to-string-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.s?css$/,
-        exclude: /\.component\.scss$/,
+        exclude: /\.component\.s?css$/,
         use: ExtractTextPlugin.extract({
           use: ['css-loader', 'postcss-loader', 'sass-loader'],
           fallback: 'style-loader',
