@@ -41,7 +41,11 @@ export class InitTradeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.book = this.activatedRoute.data.map(data => data.book);
+    this.book = this.activatedRoute.data.map(data => {
+      this.success = false;
+
+      return data.book;
+    });
     this.activatedRoute.params
       .subscribe(params => this.comment = params.comment);
   }
