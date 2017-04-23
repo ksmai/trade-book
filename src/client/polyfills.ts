@@ -5,5 +5,7 @@ import 'zone.js/dist/zone';
 if (process.env.NODE_ENV !== 'production') {
   Error.stackTraceLimit = Infinity;
   require('zone.js/dist/long-stack-trace-zone');
+} else {
+  require('web-animations-js/web-animations.min');
 }
 
