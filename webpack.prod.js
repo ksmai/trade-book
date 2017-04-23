@@ -43,19 +43,40 @@ const config = {
         use: {
           loader: 'html-loader',
           options: {
-            minimize: false,
+            minimize: true,
+            removeAttributeQuotes: false,
+            caseSensitive: true,
           },
         },
       },
       {
         test: /\.component\.s?css$/,
-        use: ['to-string-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: [
+          'to-string-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+            },
+          },
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.s?css$/,
         exclude: /\.component\.s?css$/,
         use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'postcss-loader', 'sass-loader'],
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true,
+              },
+            },
+            'postcss-loader',
+            'sass-loader',
+          ],
           fallback: 'style-loader',
         }),
       },
@@ -99,6 +120,11 @@ const config = {
     new ExtractTextPlugin('styles.[contenthash].css'),
     new HTMLWebpackPlugin({
       template: INDEX,
+      minify: {
+        collapseWhitespace: true,
+        conservativeCollapse: true,
+        caseSensitive: true,
+      },
     }),
   ],
 };
