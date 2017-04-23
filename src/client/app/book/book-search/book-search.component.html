@@ -10,6 +10,12 @@
   >
   <md-icon mdPrefix>search</md-icon>
   <md-placeholder>{{customPlaceholder || 'Search'}}</md-placeholder>
+  <md-hint align="end">
+    Powered by
+    <a href="https://developers.google.com/books/" class="powered-by">
+      Google Books API
+    </a>
+  </md-hint>
 </md-input-container>
 
 <md-nav-list [class.hide]="!showResults" dense>
@@ -28,7 +34,7 @@
     <img
       md-list-avatar
       class="search-avatar"
-      [src]="result.volumeInfo.imageLinks?.smallThumbnail"
+      [src]="result.volumeInfo.imageLinks?.smallThumbnail | dropProtocol"
       [alt]="result.volumeInfo.title"
     >
     <h3 md-line>{{result.volumeInfo.title}}</h3>

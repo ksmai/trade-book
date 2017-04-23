@@ -14,6 +14,7 @@ import 'rxjs/add/observable/of';
 import { MaterialModule } from '../../material/material.module';
 import { BookSearchComponent } from './book-search.component';
 import { SearchBookService } from './search-book.service';
+import { DropProtocolPipe } from '../../shared/drop-protocol.pipe';
 
 let fixture: ComponentFixture<BookSearchComponent>;
 let component: BookSearchComponent;
@@ -67,7 +68,7 @@ describe('BookSearchComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [MaterialModule, NoopAnimationsModule],
-        declarations: [BookSearchComponent],
+        declarations: [BookSearchComponent, DropProtocolPipe],
         providers: [
           { provide: SearchBookService, useClass: SearchBookServiceStub },
         ],

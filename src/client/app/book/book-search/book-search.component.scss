@@ -38,3 +38,15 @@ md-nav-list:not(:hover) md-list-item:first-of-type {
   border: 0;
 }
 
+.powered-by:link,
+.powered-by:visited {
+  color: #ff4081;
+  text-decoration: none;
+  opacity: .5;
+}
+
+.powered-by:hover,
+.powered-by:active {
+  opacity: 1;
+}
+

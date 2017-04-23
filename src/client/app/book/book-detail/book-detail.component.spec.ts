@@ -10,6 +10,7 @@ import { RouterStub } from '../../../testing/router.stub';
 import { ActivatedRouteStub } from '../../../testing/activated-route.stub';
 import { ScrollServiceStub } from '../../../testing/scroll.service.stub';
 import { MyBooksService } from '../../core/my-books.service';
+import { DropProtocolPipe } from '../../shared/drop-protocol.pipe';
 
 let fixture: ComponentFixture<BookDetailComponent>;
 let page: Page;
@@ -50,7 +51,7 @@ describe('BookDetailComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [MaterialModule],
-        declarations: [BookDetailComponent],
+        declarations: [BookDetailComponent, DropProtocolPipe],
         providers: [
           { provide: ScrollService, useClass: ScrollServiceStub },
           { provide: Router, useClass: RouterStub },
