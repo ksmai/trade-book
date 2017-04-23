@@ -1,7 +1,7 @@
 # trade-book
 A simple MEAN application that facilitates book trading by allowing users to post their available books and send requests to other traders.
 
-A live demo can be found at https://ksmai-book-trading.herokuapp.com/book
+A live demo can be found at https://ksmai-book-trading.herokuapp.com/
 
 ## To start
 ```
